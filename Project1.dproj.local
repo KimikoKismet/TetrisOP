@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+  <Transactions>
+    <Transaction>2019/01/05 19:32:48.499,=D:\Programování\Maturitní práce\Unit2.pas</Transaction>
+    <Transaction>2019/01/05 20:02:29.337,D:\Programování\Maturitní práce\Tetris\Tetris.pas=D:\Programování\Maturitní práce\Unit2.pas</Transaction>
+    <Transaction>2019/01/05 20:02:29.337,D:\Programování\Maturitní práce\Tetris\Tetris.dfm=D:\Programování\Maturitní práce\Unit2.dfm</Transaction>
+    <Transaction>2019/01/05 20:14:38.648,D:\Programování\Maturitní práce\Tetris\Project1.dproj=D:\Programování\Maturitní práce\Project1.dproj</Transaction>
+    <Transaction>2019/01/05 20:17:49.404,=D:\Programování\Maturitní práce\Tetris\Unit1.pas</Transaction>
+    <Transaction>2019/01/05 20:18:10.663,=D:\Programování\Maturitní práce\Tetris\Unit1.pas</Transaction>
+    <Transaction>2019/01/05 20:22:03.724,D:\Programování\Maturitní práce\Tetris\Highscore.pas=D:\Programování\Maturitní práce\Tetris\Unit1.pas</Transaction>
+    <Transaction>2019/01/05 20:22:03.724,D:\Programování\Maturitní práce\Tetris\Highscore.dfm=D:\Programování\Maturitní práce\Tetris\Unit1.dfm</Transaction>
+    <Transaction>2019/01/05 20:22:10.445,D:\Programování\Maturitní práce\Tetris\Menu.dfm=D:\Programování\Maturitní práce\Tetris\Tetris.dfm</Transaction>
+    <Transaction>2019/01/05 20:22:10.445,D:\Programování\Maturitní práce\Tetris\Menu.pas=D:\Programování\Maturitní práce\Tetris\Tetris.pas</Transaction>
+    <Transaction>2019/01/05 20:44:14.310,=D:\Programování\Maturitní práce\Tetris\Unit2.pas</Transaction>
+    <Transaction>2019/01/05 21:11:37.722,D:\Programování\Maturitní práce\Tetris\game.pas=D:\Programování\Maturitní práce\Tetris\Unit2.pas</Transaction>
+    <Transaction>2019/01/05 21:11:37.722,D:\Programování\Maturitní práce\Tetris\game.dfm=D:\Programování\Maturitní práce\Tetris\Unit2.dfm</Transaction>
+  </Transactions>
+</BorlandProject>

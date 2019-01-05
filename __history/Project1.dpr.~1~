@@ -1,0 +1,14 @@
+program Project1;
+
+uses
+  Vcl.Forms,
+  Tetris in 'Tetris.pas' {MenuForm};
+
+{$R *.res}
+
+begin
+  Application.Initialize;
+  Application.MainFormOnTaskbar := True;
+  Application.CreateForm(TMenuForm, MenuForm);
+  Application.Run;
+end.
