@@ -1,4 +1,4 @@
-object Form1: TForm1
+object highScoreForm: ThighScoreForm
   Left = 0
   Top = 0
   Caption = 'Tetris'
@@ -417,7 +417,7 @@ object Form1: TForm1
   PixelsPerInch = 96
   TextHeight = 13
   object Image1: TImage
-    Left = 8
+    Left = 0
     Top = 0
     Width = 600
     Height = 800
@@ -573,6 +573,7 @@ object Form1: TForm1
       D5150292F5D3BC6E1201C97AE95EF98C80647D88AD5D4840B21EC4571F25B07E
       B04E44D60F26205917A22B801390AC835AB9E7B6DC1F87E4B170E49EDB8F4E18
       2C0B043B07829DF303E2BE9AECD2E16D440000000049454E44AE426082}
+    OnClick = backButtonClick
   end
   object score: TStringGrid
     Left = 50

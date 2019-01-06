@@ -103,7 +103,7 @@
             <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="Highscore.pas">
-            <Form>Form1</Form>
+            <Form>highScoreForm</Form>
             <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="game.pas">

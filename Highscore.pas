@@ -8,22 +8,31 @@ uses
   Vcl.ExtCtrls;
 
 type
-  TForm1 = class(TForm)
+  ThighScoreForm = class(TForm)
     Image1: TImage;
     score: TStringGrid;
     backButton: TImage;
+    procedure backButtonClick(Sender: TObject);
   private
     { Private declarations }
   public
+    highScoreForm: ThighScoreForm;
     { Public declarations }
   end;
 
 var
-  Form1: TForm1;
+  highScoreForm: ThighScoreForm;
 
 implementation
 
 {$R *.dfm}
 
+uses Menu;
+
+procedure ThighScoreForm.backButtonClick(Sender: TObject);
+begin
+  highScoreForm.CloseModal;
+  MenuForm.Visible := true;
+end;
 
 end.

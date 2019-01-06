@@ -13,7 +13,8 @@ type
     highScoreButton: TImage;
     multiplayerButton: TImage;
     exitButton: TImage;
-    procedure singleplayerButtonClick(Sender: TObject);
+    procedure exitButtonClick(Sender: TObject);
+    procedure highScoreButtonClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -27,10 +28,17 @@ implementation
 
 {$R *.dfm}
 
-procedure TMenuForm.singleplayerButtonClick(Sender: TObject);
+uses HighScore;
+
+procedure TMenuForm.exitButtonClick(Sender: TObject);
+begin
+  Close;
+end;
+
+procedure TMenuForm.highScoreButtonClick(Sender: TObject);
 begin
   MenuForm.Visible := false;
-
+  highScoreForm.ShowModal;
 end;
 
 end.
