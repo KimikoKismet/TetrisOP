@@ -1,0 +1,17 @@
+unit score;
+
+interface
+uses System.SysUtils;
+
+implementation
+uses Highscore;
+
+function rozdeleni(radek : String) : array of String;
+var vysledek : Array of String;
+begin
+
+  vysledek := radek.Split([': ']);
+  result := vysledek;
+end;
+
+end.

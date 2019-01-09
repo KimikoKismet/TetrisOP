@@ -4,7 +4,9 @@ uses
   Vcl.Forms,
   Menu in 'Menu.pas' {MenuForm},
   Highscore in 'Highscore.pas' {highScoreForm},
-  game in 'game.pas' {Singleplayer};
+  game in 'game.pas' {GameForm},
+  score in 'score.pas',
+  Constants in 'Constants.pas';
 
 {$R *.res}
 
@@ -13,6 +15,6 @@ begin
   Application.MainFormOnTaskbar := True;
   Application.CreateForm(TMenuForm, MenuForm);
   Application.CreateForm(ThighScoreForm, highScoreForm);
-  Application.CreateForm(TSingleplayer, Singleplayer);
+  Application.CreateForm(TGameForm, GameForm);
   Application.Run;
 end.

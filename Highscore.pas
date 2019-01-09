@@ -24,15 +24,14 @@ var
   highScoreForm: ThighScoreForm;
 
 implementation
-
-{$R *.dfm}
-
 uses Menu;
+{$R *.dfm}
 
 procedure ThighScoreForm.backButtonClick(Sender: TObject);
 begin
-  highScoreForm.CloseModal;
-  MenuForm.Visible := true;
+  Close;
+  MenuForm.Show;
+  MenuForm.SetFocus;
 end;
 
 end.

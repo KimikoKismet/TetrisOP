@@ -1,4 +1,4 @@
-object Singleplayer: TSingleplayer
+object GameForm: TGameForm
   Left = 0
   Top = 0
   Caption = 'Tetris'
@@ -414,6 +414,7 @@ object Singleplayer: TSingleplayer
     0000000000000000000000000000000000000000000000000000000000000000
     000000000000000000000000000000000000000000000000000000000000}
   OldCreateOrder = False
+  OnActivate = FormActivate
   PixelsPerInch = 96
   TextHeight = 13
   object Image1: TImage
@@ -620,7 +621,7 @@ object Singleplayer: TSingleplayer
       83B6123660786F86EDAFFD7CEE5F015EF770D83C0B1B30AE1361FB038C86D61D
       1F4EBE050000000049454E44AE426082}
   end
-  object Image4: TImage
+  object Control: TImage
     Left = 30
     Top = 255
     Width = 200
@@ -629,8 +630,8 @@ object Singleplayer: TSingleplayer
   object Label1: TLabel
     Left = 35
     Top = 36
-    Width = 102
-    Height = 32
+    Width = 126
+    Height = 40
     Caption = 'SCORE:'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
@@ -657,7 +658,7 @@ object Singleplayer: TSingleplayer
     Width = 90
     Height = 120
   end
-  object Image3: TImage
+  object RetryButton: TImage
     Left = 340
     Top = 667
     Width = 71
@@ -684,7 +685,7 @@ object Singleplayer: TSingleplayer
       4840AC3B2F41460012D9B30BD23390E86E6F5795C02924700AF9054869F14C1D
       874A8F0000000049454E44AE426082}
   end
-  object Image6: TImage
+  object ExitButton: TImage
     Left = 456
     Top = 667
     Width = 105
@@ -714,5 +715,6 @@ object Singleplayer: TSingleplayer
       10E5488FB32A189CFAD29FA6535F1888EA87CBF9490C44F9E37A121903517E74
       39D38F81A876BA9E8E092600490180A4007C03F768D85BD91F7E130000000049
       454E44AE426082}
+    OnClick = ExitButtonClick
   end
 end
