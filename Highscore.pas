@@ -12,7 +12,9 @@ type
     Image1: TImage;
     score: TStringGrid;
     backButton: TImage;
+    procedure CreateParams(var Params: TCreateParams); override;
     procedure backButtonClick(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
     { Private declarations }
   public
@@ -27,11 +29,22 @@ implementation
 uses Menu;
 {$R *.dfm}
 
+procedure ThighScoreForm.CreateParams(var Params: TCreateParams);
+begin
+  inherited;
+  Params.ExStyle := Params.ExStyle or WS_EX_APPWINDOW;
+end;
+
+procedure ThighScoreForm.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  Application.Terminate;
+end;
+
 procedure ThighScoreForm.backButtonClick(Sender: TObject);
 begin
-  Close;
   MenuForm.Show;
-  MenuForm.SetFocus;
+  Close;
+  //MenuForm.SetFocus;
 end;
 
 end.

@@ -14,7 +14,5 @@ begin
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
   Application.CreateForm(TMenuForm, MenuForm);
-  Application.CreateForm(ThighScoreForm, highScoreForm);
-  Application.CreateForm(TGameForm, GameForm);
   Application.Run;
 end.

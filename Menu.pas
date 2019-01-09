@@ -39,9 +39,11 @@ end;
 
 procedure TMenuForm.highScoreButtonClick(Sender: TObject);
 begin
-  Hide;
+  Application.CreateForm(ThighScoreForm, highScoreForm);
   highScoreForm.Show;
-  highScoreForm.SetFocus;
+  Self.Hide;
+  //highScoreForm.Show;
+  //highScoreForm.SetFocus;
 end;
 
 procedure TMenuForm.multiplayerButtonClick(Sender: TObject);
