@@ -42,20 +42,23 @@ begin
   Application.CreateForm(ThighScoreForm, highScoreForm);
   highScoreForm.Show;
   Self.Hide;
+  //highScoreForm.Show;
+  //highScoreForm.SetFocus;
 end;
 
 procedure TMenuForm.multiplayerButtonClick(Sender: TObject);
 begin
-  Application.CreateForm(TGameForm, GameForm);
+  Hide;
   GameForm.Show;
-  Self.Hide;
+  GameForm.SetFocus;
 end;
 
 procedure TMenuForm.singleplayerButtonClick(Sender: TObject);
 begin
-  Application.CreateForm(TGameForm, GameForm);
+  Hide;
   GameForm.Show;
-  Self.Hide;
+  GameForm.SetFocus;
+
 end;
 
 end.

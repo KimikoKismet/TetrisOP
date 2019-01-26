@@ -1,0 +1,33 @@
+unit Smer;
+
+interface
+
+type
+  TSmer = Class(TObject)
+    private
+      x,y : Integer;
+    public
+      constructor Create(x,y : Integer);
+      function getX : Integer;
+      function getY : Integer;
+  End;
+
+implementation
+
+constructor TSmer.Create(x: Integer; y: Integer);
+begin
+  self.x := x;
+  self.y := y;
+end;
+
+function TSmer.getX;
+begin
+  result := x;
+end;
+
+function TSmer.getY;
+begin
+  result := y;
+end;
+
+end.

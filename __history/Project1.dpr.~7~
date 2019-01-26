@@ -6,9 +6,7 @@ uses
   Highscore in 'Highscore.pas' {highScoreForm},
   game in 'game.pas' {GameForm},
   score in 'score.pas',
-  Constants in 'Constants.pas',
-  Kosticka in 'Kosticka.pas',
-  Smer in 'Smer.pas';
+  Constants in 'Constants.pas';
 
 {$R *.res}
 
