@@ -19,10 +19,12 @@ type
     ExitButton: TImage;
     procedure ExitButtonClick(Sender: TObject);
     procedure FormActivate(Sender: TObject);
+    procedure CreateParams(var Params: TCreateParams); override;
 
   private
     { Private declarations }
   public
+    GameForm: TGameForm;
     { Public declarations }
   end;
 
@@ -39,12 +41,16 @@ begin
   Control.Picture.LoadFromFile('C:\Users\gmich\Dropbox\TetrisOP\obrazky\HowToPlaySingleplayer.png');
 end;
 
+procedure TGameForm.CreateParams(var Params: TCreateParams);
+begin
+  inherited;
+  Params.ExStyle := Params.ExStyle or WS_EX_APPWINDOW;
+end;
 
 procedure TGameForm.ExitButtonClick(Sender: TObject);
 begin
-  Close;
   MenuForm.Show;
-  MenuForm.SetFocus;
+  Hide;
 end;
 
 end.

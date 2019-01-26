@@ -10,11 +10,12 @@ uses
 type
   ThighScoreForm = class(TForm)
     Image1: TImage;
-    score: TStringGrid;
+    tabulka: TStringGrid;
     backButton: TImage;
     procedure CreateParams(var Params: TCreateParams); override;
     procedure backButtonClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure FormShow(Sender: TObject);
   private
     { Private declarations }
   public
@@ -26,8 +27,9 @@ var
   highScoreForm: ThighScoreForm;
 
 implementation
-uses Menu;
+uses Menu, score;
 {$R *.dfm}
+
 
 procedure ThighScoreForm.CreateParams(var Params: TCreateParams);
 begin
@@ -40,11 +42,31 @@ begin
   Application.Terminate;
 end;
 
+procedure ThighScoreForm.FormShow(Sender: TObject);
+var   skore : TStringList;
+      radek : TArray<String>;
+      i,r : Integer;
+      s : Integer;
+begin
+  i := tabulka.ColCount - 1;
+  skore := nactiSoubor('HighScore.txt');
+  for r := 0 to skore.Count-1 do begin
+    radek := rozdeleni(skore[r]);
+    for s := 0 to 1 do tabulka.Cells[s+1,r+1] := radek[s];
+  end;
+
+
+
+
+
+end;
+
 procedure ThighScoreForm.backButtonClick(Sender: TObject);
 begin
   MenuForm.Show;
-  Close;
-  //MenuForm.SetFocus;
+  Hide;
 end;
+
+
 
 end.

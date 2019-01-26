@@ -414,8 +414,9 @@ object highScoreForm: ThighScoreForm
     0000000000000000000000000000000000000000000000000000000000000000
     000000000000000000000000000000000000000000000000000000000000}
   OldCreateOrder = False
-  Position = poScreenCenter
+  Position = poDesktopCenter
   OnClose = FormClose
+  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object Image1: TImage
@@ -577,7 +578,7 @@ object highScoreForm: ThighScoreForm
       2C0B043B07829DF303E2BE9AECD2E16D440000000049454E44AE426082}
     OnClick = backButtonClick
   end
-  object score: TStringGrid
+  object tabulka: TStringGrid
     Left = 50
     Top = 38
     Width = 500
