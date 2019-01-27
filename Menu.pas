@@ -19,6 +19,8 @@ type
     procedure highScoreButtonClick(Sender: TObject);
     procedure singleplayerButtonClick(Sender: TObject);
     procedure multiplayerButtonClick(Sender: TObject);
+    procedure singleplayerButtonMouseEnter(Sender: TObject);
+    procedure singleplayerButtonMouseLeave(Sender: TObject);
   private
     { Private declarations }
   public
@@ -61,6 +63,16 @@ begin
   Application.CreateForm(TGameForm, GameForm);
   GameForm.Show;
   Self.Hide;
+end;
+
+procedure TMenuForm.singleplayerButtonMouseEnter(Sender: TObject);
+begin
+  SingleplayerButton.Picture.LoadFromFile('obrazky\SingleplayerClickButton.png');
+end;
+
+procedure TMenuForm.singleplayerButtonMouseLeave(Sender: TObject);
+begin
+  SingleplayerButton.Picture.LoadFromFile('obrazky\SingleplayerButton.png');
 end;
 
 function gameModeSelection : String;

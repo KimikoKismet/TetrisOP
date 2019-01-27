@@ -21,7 +21,7 @@ type
       function getY : Integer;
       procedure setX(x : Integer);
       procedure setY(y : Integer);
-      function CreateKosticka(pozice : TArray<TArray<Integer>>; image : TImage) : TArray<TArray<TKosticka>>;
+      function CreateKosticka(pozice : TArray<TArray<Integer>>) : TArray<TArray<TKosticka>>;
   End;
   TCtverec = Class(TTvar)
     constructor Create(image : TImage);
@@ -132,7 +132,7 @@ end;
 
 constructor TLkoMirror.Create(image : Timage);
 var
-  pozice : TArray<TArray<Integer>> =
+  tvar : TArray<TArray<Integer>> =
     (
       (0,0,0,0),
       (0,1,0,0),
@@ -141,7 +141,7 @@ var
     );
 begin
   inherited Create(image);
-  self.tvar := TTvar.CreateKosticka(pozice,image);
+  self.tvar := tvar;
 end;
 
 constructor TLkoNormal.Create(image : Timage);

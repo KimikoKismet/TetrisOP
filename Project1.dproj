@@ -116,6 +116,7 @@
         <DCCReference Include="Constants.pas"/>
         <DCCReference Include="Kosticka.pas"/>
         <DCCReference Include="Smer.pas"/>
+        <DCCReference Include="Tvar.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

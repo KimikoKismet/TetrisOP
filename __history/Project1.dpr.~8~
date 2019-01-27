@@ -8,8 +8,7 @@ uses
   score in 'score.pas',
   Constants in 'Constants.pas',
   Kosticka in 'Kosticka.pas',
-  Smer in 'Smer.pas',
-  Tvar in 'Tvar.pas';
+  Smer in 'Smer.pas';
 
 {$R *.res}
 

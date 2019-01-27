@@ -995,6 +995,8 @@ object MenuForm: TMenuForm
       69B012A205C08BA8459A6025440B80357187B4C14A8816002BAA06D5040B0042
       102C00D3205800A6F11BABAC59F10C50EFD90000000049454E44AE426082}
     OnClick = singleplayerButtonClick
+    OnMouseEnter = singleplayerButtonMouseEnter
+    OnMouseLeave = singleplayerButtonMouseLeave
   end
   object highScoreButton: TImage
     Left = 184
