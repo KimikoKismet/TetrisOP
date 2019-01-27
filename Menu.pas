@@ -6,6 +6,8 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, Vcl.Imaging.pngimage;
 
+function gameModeSelection : String;
+
 type
   TMenuForm = class(TForm)
     Background: TImage;
@@ -20,11 +22,12 @@ type
   private
     { Private declarations }
   public
-    { Public declarations }
+
   end;
 
 var
   MenuForm: TMenuForm;
+  gameMode : Integer;
 
 implementation
 uses Highscore, game;
@@ -46,6 +49,7 @@ end;
 
 procedure TMenuForm.multiplayerButtonClick(Sender: TObject);
 begin
+  gameMode := 2;
   Application.CreateForm(TGameForm, GameForm);
   GameForm.Show;
   Self.Hide;
@@ -53,9 +57,16 @@ end;
 
 procedure TMenuForm.singleplayerButtonClick(Sender: TObject);
 begin
+  gameMode := 1;
   Application.CreateForm(TGameForm, GameForm);
   GameForm.Show;
   Self.Hide;
+end;
+
+function gameModeSelection : String;
+begin
+  if gameMode = 1 then result := 'obrazky\HowToPlaySingleplayer.png'
+  else result := 'obrazky\HowToPlayMultiplayer.png';
 end;
 
 end.

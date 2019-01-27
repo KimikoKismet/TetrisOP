@@ -1,0 +1,80 @@
+unit Tvar;
+
+interface
+
+uses
+  Kosticka, Vcl.ExtCtrls, System.Variants;
+
+type
+  TTvar = Class(TObject)
+    protected
+      tvar : Array of Array of TKosticka;
+      x,y : Integer;
+      image : TImage;
+    public
+      constructor Create(image : TImage);
+      function getTvar : Array of Array of TKosticka;
+      procedure setTvar(tvar : Array of Array of TKosticka);
+      function getBody : Array of Integer;
+      function createTvar(souradnice : Array of Array of Integer) : Array of Array of TKosticka;
+      function getImage : TImage;
+  End;
+
+
+implementation
+
+constructor TTvar.Create(image: TImage);
+begin
+  self.image := image;
+end;
+
+function TTvar.getTvar : Array of Array of TKosticka;
+begin
+  result := tvar;
+end;
+
+procedure TTvar.setTvar(tvar : Array of Array of TKosticka);
+begin
+  self.tvar := tvar;
+end;
+
+function TTvar.getBody : Array of Integer;
+var
+  souradnice : Array of Array of Integer;
+  k,j,i : Integer;
+  kostka : Array of Array of TKosticka;
+  bod : TKosticka;
+begin
+  SetLength(souradnice, 2, 4);
+  k := 0;
+  kostka := getTvar;
+  for i := 0 to Length(kostka)-1 do begin
+    for j := 0 to Length[0](kostka)-1 do begin
+      bod := kostka[j][i];
+      if bod <> Null then begin
+        souradnice[0][k] := i;
+        souradnice[1][k] := j;
+        k := k + 1;
+      end;
+    end;
+  end;
+  result := souradnice;
+end;
+
+function TTvar.getImage : TImage;
+begin
+  result := image;
+end;
+
+function createTvar(souradnice : Array of Array of Integer) : Array of Array of TKosticka;
+var
+  tvar : Array of Array of TKosticka;
+  sloupec : Integer;
+begin
+  SetLength(tvar, 4, 4);
+  for sloupec := 0 to Length(souradnice[0])-1 do tvar[souradnice[0][sloupec]][souradnice[1][sloupec]] := TKosticka.Create();
+
+end;
+
+
+end.

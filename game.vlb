@@ -1,19 +1,4 @@
-﻿[Label2]
-Coordinates=128,71,46,51
-
-[Image5]
-Coordinates=69,71,49,51
-
-[Image2]
-Coordinates=10,10,49,51
-
-[Label1]
-Coordinates=69,10,46,51
-
-[Image1]
-Coordinates=125,10,49,51
-
-[]
+﻿[]
 Coordinates=239,1,82,33
 
 [Control]
@@ -25,4 +10,19 @@ Coordinates=184,10,49,51
 
 [RetryButton]
 Coordinates=243,10,49,51
+
+[NasledujiciKosticka]
+Coordinates=10,10,49,51
+
+[okraje]
+Coordinates=69,71,49,51
+
+[Background]
+Coordinates=125,10,49,51
+
+[ScoreText]
+Coordinates=69,10,46,51
+
+[ScoreNumber]
+Coordinates=128,71,46,51
 

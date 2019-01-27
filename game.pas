@@ -9,14 +9,15 @@ uses
 
 type
   TGameForm = class(TForm)
-    Image1: TImage;
-    Label1: TLabel;
-    Label2: TLabel;
-    Image2: TImage;
+    Background: TImage;
+    ScoreText: TLabel;
+    ScoreNumber: TLabel;
+    NasledujiciKosticka: TImage;
     RetryButton: TImage;
     Control: TImage;
-    Image5: TImage;
+    okraje: TImage;
     ExitButton: TImage;
+    pole: TImage;
     procedure ExitButtonClick(Sender: TObject);
     procedure FormActivate(Sender: TObject);
     procedure CreateParams(var Params: TCreateParams); override;
@@ -38,7 +39,7 @@ uses Menu;
 
 procedure TGameForm.FormActivate(Sender: TObject);
 begin
-  Control.Picture.LoadFromFile('C:\Users\gmich\Dropbox\TetrisOP\obrazky\HowToPlaySingleplayer.png');
+  Control.Picture.LoadFromFile(gameModeSelection);
 end;
 
 procedure TGameForm.CreateParams(var Params: TCreateParams);
