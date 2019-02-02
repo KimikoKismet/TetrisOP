@@ -1,7 +1,6 @@
 unit Smer;
 
 interface
-
 type
   TSmer = Class(TObject)
     private
@@ -23,7 +22,8 @@ type
   TNic = Class(TSmer)
     constructor Create();
   End;
-
+var
+  Dolu: TDolu;
 implementation
 
 constructor TSmer.Create(x: Integer; y: Integer);

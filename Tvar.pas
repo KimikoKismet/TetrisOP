@@ -16,12 +16,11 @@ type
       function getTvar : TArray<TArray<TKosticka>>;
       procedure setTvar(tvar : TArray<TArray<TKosticka>>);
       function getBody : TArray<TArray<Integer>>;
-      function createTvar(souradnice : TArray<TArray<Integer>>) : TArray<TArray<TKosticka>>;
+      //function createTvar(souradnice : TArray<TArray<Integer>>) : TArray<TArray<TKosticka>>;
       function getX : Integer;
       function getY : Integer;
       procedure setX(x : Integer);
       procedure setY(y : Integer);
-      function CreateKosticka(pozice : TArray<TArray<Integer>>; image : TImage) : TArray<TArray<TKosticka>>;
   End;
   TCtverec = Class(TTvar)
     constructor Create(image : TImage);
@@ -73,10 +72,10 @@ begin
   SetLength(souradnice, 2, 4);
   k := 0;
   kostka := getTvar;
-  for i := 0 to Length(kostka)-1 do begin
-    for j := 0 to Length(kostka[0])-1 do begin
+  for i := 0 to (Length(kostka)-1) do begin
+    for j := 0 to (Length(kostka[0])-1) do begin
       bod := kostka[j][i];
-      if bod <> Nil then begin
+      if bod <> nil then begin
         souradnice[0][k] := i;
         souradnice[1][k] := j;
         k := k + 1;
@@ -86,15 +85,16 @@ begin
   result := souradnice;
 end;
 
-function TTvar.createTvar(souradnice : TArray<TArray<Integer>>) : TArray<TArray<TKosticka>>;
+{function TTvar.createTvar(souradnice : TArray<TArray<Integer>>) : TArray<TArray<TKosticka>>;
 var
   tvar : TArray<TArray<TKosticka>>;
   sloupec : Integer;
 begin
   SetLength(tvar, 4, 4);
-  for sloupec := 0 to Length(souradnice[0])-1 do tvar[souradnice[0][sloupec]][souradnice[1][sloupec]] := TKosticka.Create(image);
+  for sloupec := 0 to Length(souradnice[0])-1 do
+    tvar[souradnice[0][sloupec]][souradnice[1][sloupec]] := TKosticka.Create(image);
   result := tvar;
-end;
+end;  }
 
 function TTvar.getX;
 begin
@@ -116,115 +116,103 @@ begin
   self.y := y;
 end;
 
-function TTvar.CreateKosticka(pozice: TArray<System.TArray<System.Integer>>; image : TImage) : TArray<TArray<TKosticka>>;
-var
-  tvar : TArray<TArray<TKosticka>>;
-  i,j : Integer;
-begin
-  for i := 0 to 3 do begin
-    for j := 0 to 3 do begin
-      if pozice[i][j] = 0 then tvar[i][j] := nil
-      else tvar[i][j] := TKosticka.Create(image);
-    end;
-  end;
-end;
 
 
 constructor TLkoMirror.Create(image : Timage);
 var
-  pozice : TArray<TArray<Integer>> =
-    (
-      (0,0,0,0),
-      (0,1,0,0),
-      (0,1,0,0),
-      (1,1,0,0)
-    );
+  tvar : TArray<TArray<TKosticka>>;    // pøi indexování je první øádek potom sloupec ... pø: pozice[0][1] = nil X pozice[1][0] = Kosticka
 begin
   inherited Create(image);
-  self.tvar := TTvar.CreateKosticka(pozice,image);
+  tvar := TArray<TArray<TKosticka>>.Create(
+          TArray<TKosticka>.Create(nil, nil, nil, nil),
+          TArray<TKosticka>.Create(nil, TKosticka.Create(image), nil, nil),
+          TArray<TKosticka>.Create(nil, TKosticka.Create(image), nil, nil),
+          TArray<TKosticka>.Create(TKosticka.Create(image), TKosticka.Create(image), nil, nil)
+  );
+  self.tvar := tvar;
 end;
 
 constructor TLkoNormal.Create(image : Timage);
 var
-  tvar : Array[1..4,1..4] of TKosticka =
-    (
-      (nil, nil, nil, nil),
-      (Tkosticka.Create(image), nil, nil, nil),
-      (Tkosticka.Create(image), nil, nil, nil),
-      (Tkosticka.Create(image), Tkosticka.Create(image), nil, nil)
-    );
+  tvar : TArray<TArray<TKosticka>>;
 begin
   inherited Create(image);
+  tvar := TArray<TArray<TKosticka>>.Create(
+          TArray<TKosticka>.Create(nil, nil, nil, nil),
+          TArray<TKosticka>.Create(TKosticka.Create(image), nil, nil, nil),
+          TArray<TKosticka>.Create(TKosticka.Create(image), nil, nil, nil),
+          TArray<TKosticka>.Create(TKosticka.Create(image), TKosticka.Create(image), nil, nil)
+  );
   self.tvar := tvar;
 end;
 
 constructor TCtverec.Create(image : Timage);
 var
-  tvar : Array[1..4,1..4] of TKosticka =
-    (
-      (nil, nil, nil, nil),
-      (nil, nil, nil, nil),
-      (Tkosticka.Create(image), Tkosticka.Create(image), nil, nil),
-      (Tkosticka.Create(image), Tkosticka.Create(image),nil, nil)
-    );
+  tvar : TArray<TArray<TKosticka>>;
 begin
   inherited Create(image);
+  tvar := TArray<TArray<TKosticka>>.Create(
+          TArray<TKosticka>.Create(nil, nil, nil, nil),
+          TArray<TKosticka>.Create(nil, nil, nil, nil),
+          TArray<TKosticka>.Create(TKosticka.Create(image), TKosticka.Create(image), nil, nil),
+          TArray<TKosticka>.Create(TKosticka.Create(image), TKosticka.Create(image), nil, nil)
+  );
   self.tvar := tvar;
 end;
 
 constructor TZkoMirror.Create(image : Timage);
 var
-  tvar : Array[1..4,1..4] of TKosticka =
-    (
-      (nil, nil, nil, nil),
-      (nil, nil, nil, nil),
-      (nil, Tkosticka.Create(image), Tkosticka.Create(image), nil),
-      (Tkosticka.Create(image), Tkosticka.Create(image), nil, nil)
-    );
+  tvar : TArray<TArray<TKosticka>>;
 begin
   inherited Create(image);
+  tvar := TArray<TArray<TKosticka>>.Create(
+          TArray<TKosticka>.Create(nil, nil, nil, nil),
+          TArray<TKosticka>.Create(nil, nil, nil, nil),
+          TArray<TKosticka>.Create(nil, TKosticka.Create(image), TKosticka.Create(image), nil),
+          TArray<TKosticka>.Create(TKosticka.Create(image), TKosticka.Create(image), nil, nil)
+  );
   self.tvar := tvar;
 end;
 
 constructor TZkoNormal.Create(image : Timage);
 var
-  tvar : Array[1..4,1..4] of TKosticka =
-    (
-      (nil, nil, nil, nil),
-      (nil, nil, nil, nil),
-      (Tkosticka.Create(image), Tkosticka.Create(image), nil, nil),
-      (nil, Tkosticka.Create(image), Tkosticka.Create(image), nil)
-    );
+  tvar : TArray<TArray<TKosticka>>;
 begin
   inherited Create(image);
+  tvar := TArray<TArray<TKosticka>>.Create(
+          TArray<TKosticka>.Create(nil, nil, nil, nil),
+          TArray<TKosticka>.Create(nil, nil, nil, nil),
+          TArray<TKosticka>.Create(TKosticka.Create(image), TKosticka.Create(image), nil, nil),
+          TArray<TKosticka>.Create(nil, TKosticka.Create(image), TKosticka.Create(image), nil)
+  );
   self.tvar := tvar;
 end;
 
 constructor TTkoKosticka.Create(image : Timage);
 var
-  tvar : Array[1..4,1..4] of TKosticka =
-    (
-      (nil, nil, nil, nil),
-      (nil, nil, nil, nil),
-      (nil, Tkosticka.Create(image), nil, nil),
-      (Tkosticka.Create(image), Tkosticka.Create(image), Tkosticka.Create(image), nil)
-    );
+  tvar : TArray<TArray<TKosticka>>;
 begin
   inherited Create(image);
+  tvar := TArray<TArray<TKosticka>>.Create(
+          TArray<TKosticka>.Create(nil, nil, nil, nil),
+          TArray<TKosticka>.Create(nil, nil, nil, nil),
+          TArray<TKosticka>.Create(nil, TKosticka.Create(image), nil, nil),
+          TArray<TKosticka>.Create(TKosticka.Create(image), TKosticka.Create(image), TKosticka.Create(image), nil)
+  );
   self.tvar := tvar;
 end;
 
 constructor TTrubka.Create(image : TImage);
 var
-  tvar : Array[1..4,1..4] of TKosticka =
-    (
-      (Tkosticka.Create(image), nil, nil, nil),
-      (Tkosticka.Create(image), nil, nil, nil),
-      (Tkosticka.Create(image), nil, nil, nil),
-      (Tkosticka.Create(image), nil, nil, nil)
-    );
+  tvar : TArray<TArray<TKosticka>>;
 begin
   inherited Create(image);
+  tvar := TArray<TArray<TKosticka>>.Create(
+          TArray<TKosticka>.Create(TKosticka.Create(image), nil, nil, nil),
+          TArray<TKosticka>.Create(TKosticka.Create(image), nil, nil, nil),
+          TArray<TKosticka>.Create(TKosticka.Create(image), nil, nil, nil),
+          TArray<TKosticka>.Create(TKosticka.Create(image), nil, nil, nil)
+  );
   self.tvar := tvar;
 end;
 

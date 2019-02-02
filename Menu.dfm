@@ -1037,6 +1037,8 @@ object MenuForm: TMenuForm
       8106440AF4236AAF26D080488176E2EE6A030D8814D0AB6A4E13288041081470
       8C4001C77E0344BE6BC495F71A3C0000000049454E44AE426082}
     OnClick = highScoreButtonClick
+    OnMouseEnter = highScoreButtonMouseEnter
+    OnMouseLeave = highScoreButtonMouseLeave
   end
   object multiplayerButton: TImage
     Left = 161
@@ -1088,6 +1090,8 @@ object MenuForm: TMenuForm
       6D5402C202AC4DD50B4B5402C202AC49DD0A6B5402C202ACC5D4899AA8004016
       5101E08AA80070F507407FD1E2BC91ECFB0000000049454E44AE426082}
     OnClick = multiplayerButtonClick
+    OnMouseEnter = multiplayerButtonMouseEnter
+    OnMouseLeave = multiplayerButtonMouseLeave
   end
   object exitButton: TImage
     Left = 247
@@ -1120,5 +1124,7 @@ object MenuForm: TMenuForm
       39D38F81A876BA9E8E092600490180A4007C03F768D85BD91F7E130000000049
       454E44AE426082}
     OnClick = exitButtonClick
+    OnMouseEnter = exitButtonMouseEnter
+    OnMouseLeave = exitButtonMouseLeave
   end
 end

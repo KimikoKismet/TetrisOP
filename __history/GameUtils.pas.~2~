@@ -1,0 +1,24 @@
+unit GameUtils;
+
+interface
+
+uses
+  Kosticka;
+
+implementation
+
+function copy(src : TArray<TArray<TKosticka>>) : TArray<TArray<TKosticka>>;
+var
+  copy : TArray<TArray<TKosticka>>;
+  i,j : Integer;
+begin
+  SetLength(copy,Length(src),Length(src[0]));
+  for i := 0 to Length(src) do begin
+    for j := 0 to Length(src[0]) do begin
+      copy[i][j] := src[i][j];
+    end;
+  end;
+
+end;
+
+end.

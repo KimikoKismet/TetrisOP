@@ -21,6 +21,12 @@ type
     procedure multiplayerButtonClick(Sender: TObject);
     procedure singleplayerButtonMouseEnter(Sender: TObject);
     procedure singleplayerButtonMouseLeave(Sender: TObject);
+    procedure multiplayerButtonMouseEnter(Sender: TObject);
+    procedure multiplayerButtonMouseLeave(Sender: TObject);
+    procedure highScoreButtonMouseLeave(Sender: TObject);
+    procedure highScoreButtonMouseEnter(Sender: TObject);
+    procedure exitButtonMouseEnter(Sender: TObject);
+    procedure exitButtonMouseLeave(Sender: TObject);
   private
     { Private declarations }
   public
@@ -42,11 +48,31 @@ begin
   Application.Terminate;
 end;
 
+procedure TMenuForm.exitButtonMouseEnter(Sender: TObject);
+begin
+  ExitButton.Picture.LoadFromFile('obrazky\ExitClickButton.png');
+end;
+
+procedure TMenuForm.exitButtonMouseLeave(Sender: TObject);
+begin
+  ExitButton.Picture.LoadFromFile('obrazky\ExitButton.png')
+end;
+
 procedure TMenuForm.highScoreButtonClick(Sender: TObject);
 begin
   Application.CreateForm(ThighScoreForm, highScoreForm);
   highScoreForm.Show;
   Self.Hide;
+end;
+
+procedure TMenuForm.highScoreButtonMouseEnter(Sender: TObject);
+begin
+  highScoreButton.Picture.LoadFromFile('obrazky\HighScoreClickButton.png');
+end;
+
+procedure TMenuForm.highScoreButtonMouseLeave(Sender: TObject);
+begin
+  highScoreButton.Picture.LoadFromFile('obrazky\HighScoreButton.png');
 end;
 
 procedure TMenuForm.multiplayerButtonClick(Sender: TObject);
@@ -55,6 +81,16 @@ begin
   Application.CreateForm(TGameForm, GameForm);
   GameForm.Show;
   Self.Hide;
+end;
+
+procedure TMenuForm.multiplayerButtonMouseEnter(Sender: TObject);
+begin
+  multiplayerButton.Picture.LoadFromFile('obrazky\MultiplayerClickButton.png');
+end;
+
+procedure TMenuForm.multiplayerButtonMouseLeave(Sender: TObject);
+begin
+  multiplayerButton.Picture.LoadFromFile('obrazky\MultiplayerButton.png');
 end;
 
 procedure TMenuForm.singleplayerButtonClick(Sender: TObject);

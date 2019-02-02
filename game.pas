@@ -5,7 +5,8 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Imaging.pngimage,
-  Vcl.ExtCtrls;
+  Vcl.ExtCtrls,
+  Kosticka;
 
 type
   TGameForm = class(TForm)
@@ -18,6 +19,7 @@ type
     okraje: TImage;
     ExitButton: TImage;
     pole: TImage;
+    Casovac: TTimer;
     procedure ExitButtonClick(Sender: TObject);
     procedure FormActivate(Sender: TObject);
     procedure CreateParams(var Params: TCreateParams); override;
@@ -30,7 +32,8 @@ type
   end;
 
 var
-  GameForm: TGameForm;
+  GameForm : TGameForm;
+  aktualKosticka,nasledujiciKosticka : TKosticka;
 
 implementation
 uses Menu;
@@ -52,6 +55,11 @@ procedure TGameForm.ExitButtonClick(Sender: TObject);
 begin
   MenuForm.Show;
   Hide;
+end;
+
+procedure gameInit;
+begin
+
 end;
 
 end.
