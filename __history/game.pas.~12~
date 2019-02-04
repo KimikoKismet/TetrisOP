@@ -44,19 +44,16 @@ uses Menu;
 
 {$R *.dfm}
 
-///
 procedure TGameForm.FormActivate(Sender: TObject);
 begin
   Control.Picture.LoadFromFile(gameModeSelection);
 end;
 
-/// zmìna barvy tlaèítka pøi najetí kurzoru na tlaèítko
 procedure TGameForm.RetryButtonMouseEnter(Sender: TObject);
 begin
   RetryButton.Picture.LoadFromFile('obrazky\RetryClickButton.png');
 end;
 
-/// zmìna barvy tlaèítka pøi vyjetí kurzoru z tlaèítka
 procedure TGameForm.RetryButtonMouseLeave(Sender: TObject);
 begin
   RetryButton.Picture.LoadFromFile('obrazky\RetryButton.png');
@@ -74,13 +71,11 @@ begin
   Hide;
 end;
 
-/// zmìna barvy tlaèítka pøi najetí kurzoru na tlaèítko
 procedure TGameForm.ExitButtonMouseEnter(Sender: TObject);
 begin
   ExitButton.Picture.LoadFromFile('obrazky\ExitClickButton.png');
 end;
 
-/// zmìna barvy tlaèítka pøi vyjetí kurzoru z tlaèítka
 procedure TGameForm.ExitButtonMouseLeave(Sender: TObject);
 begin
   ExitButton.Picture.LoadFromFile('obrazky\ExitButton.png');

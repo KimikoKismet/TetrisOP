@@ -48,13 +48,13 @@ begin
   Application.Terminate;
 end;
 
-/// zmìna barvy tlaèítka pøi najetí kurzoru na tlaèítko
+/// zmìna barvy tlaèítka pøi najetí myší na tlaèítko
 procedure TMenuForm.exitButtonMouseEnter(Sender: TObject);
 begin
   ExitButton.Picture.LoadFromFile('obrazky\ExitClickButton.png');
 end;
 
-/// zmìna barvy tlaèítka pøi vyjetí kurzoru z tlaèítka
+/// zmìna barvy tlaèítka pøi najetí myší na tlaèítko
 procedure TMenuForm.exitButtonMouseLeave(Sender: TObject);
 begin
   ExitButton.Picture.LoadFromFile('obrazky\ExitButton.png')
@@ -68,13 +68,13 @@ begin
   Self.Hide;
 end;
 
-/// zmìna barvy tlaèítka pøi najetí kurzoru na tlaèítko
+/// zmìna barvy tlaèítka pøi najetí myší na tlaèítko
 procedure TMenuForm.highScoreButtonMouseEnter(Sender: TObject);
 begin
   highScoreButton.Picture.LoadFromFile('obrazky\HighScoreClickButton.png');
 end;
 
-/// zmìna barvy tlaèítka pøi vyjetí kurzoru z tlaèítka
+/// zmìna barvy tlaèítka pøi najetí myší na tlaèítko
 procedure TMenuForm.highScoreButtonMouseLeave(Sender: TObject);
 begin
   highScoreButton.Picture.LoadFromFile('obrazky\HighScoreButton.png');
@@ -89,13 +89,13 @@ begin
   Self.Hide;
 end;
 
-/// zmìna barvy tlaèítka pøi najetí kurzoru na tlaèítko
+/// zmìna barvy tlaèítka pøi najetí myší na tlaèítko
 procedure TMenuForm.multiplayerButtonMouseEnter(Sender: TObject);
 begin
   multiplayerButton.Picture.LoadFromFile('obrazky\MultiplayerClickButton.png');
 end;
 
-/// zmìna barvy tlaèítka pøi vyjetí kurzoru z tlaèítka
+/// zmìna barvy tlaèítka pøi najetí myší na tlaèítko
 procedure TMenuForm.multiplayerButtonMouseLeave(Sender: TObject);
 begin
   multiplayerButton.Picture.LoadFromFile('obrazky\MultiplayerButton.png');
@@ -110,13 +110,13 @@ begin
   Self.Hide;
 end;
 
-/// zmìna barvy tlaèítka pøi najetí kurzoru na tlaèítko
+/// zmìna barvy tlaèítka pøi najetí myší na tlaèítko
 procedure TMenuForm.singleplayerButtonMouseEnter(Sender: TObject);
 begin
   SingleplayerButton.Picture.LoadFromFile('obrazky\SingleplayerClickButton.png');
 end;
 
-/// zmìna barvy tlaèítka pøi vyjetí kurzoru z tlaèítka
+/// zmìna barvy tlaèítka pøi najetí myší na tlaèítko
 procedure TMenuForm.singleplayerButtonMouseLeave(Sender: TObject);
 begin
   SingleplayerButton.Picture.LoadFromFile('obrazky\SingleplayerButton.png');
