@@ -32,12 +32,13 @@ implementation
 uses Menu, score;
 {$R *.dfm}
 
-
+/// zmìna barvy tlaèítka pøi najetí kurzoru na tlaèítko
 procedure ThighScoreForm.backButtonMouseEnter(Sender: TObject);
 begin
   backButton.Picture.LoadFromFile('obrazky\BackClickButton.png');
 end;
 
+/// zmìna barvy tlaèítka pøi vyjetí kurzoru z tlaèítka
 procedure ThighScoreForm.backButtonMouseLeave(Sender: TObject);
 begin
   backButton.Picture.LoadFromFile('obrazky\BackButton.png');
@@ -54,6 +55,7 @@ begin
   Application.Terminate;
 end;
 
+/// jakmile se spustí okno s High Score tak se naètou uložená skóre a zobrazí se v tabulce
 procedure ThighScoreForm.FormShow(Sender: TObject);
 var   skore : TStringList;
       radek : TArray<String>;
@@ -66,13 +68,9 @@ begin
     radek := rozdeleni(skore[r]);
     for s := 0 to 1 do tabulka.Cells[s+1,r+1] := radek[s];
   end;
-
-
-
-
-
 end;
 
+/// po stisknutí tlaèítka backButton se uživatel vrátí do menu
 procedure ThighScoreForm.backButtonClick(Sender: TObject);
 begin
   MenuForm.Show;
