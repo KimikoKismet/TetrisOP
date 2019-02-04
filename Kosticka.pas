@@ -12,7 +12,7 @@ type
       constructor Create(kost : TImage);
       function getKosticka : TImage;
   End;
-  TKostickaEnum = (TRUBKA, CTVEREC, LKO, ZKO, TKO);
+  TKostickaEnum = (CERVENA, MODRA, ZELENA, ORANZOVA, FIALOVA);
 
 implementation
 

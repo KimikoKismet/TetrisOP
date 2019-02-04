@@ -4,9 +4,9 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Imaging.pngimage,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Imaging.pngimage, System.Generics.Collections,
   Vcl.ExtCtrls,
-  Kosticka;
+  Menu, GameUtils, Kosticka, Constants, Tvar;
 
 type
   TGameForm = class(TForm)
@@ -27,6 +27,8 @@ type
     procedure ExitButtonMouseLeave(Sender: TObject);
     procedure RetryButtonMouseEnter(Sender: TObject);
     procedure RetryButtonMouseLeave(Sender: TObject);
+    procedure CasovacTimer(Sender: TObject);
+    procedure gameLoop(Sender: TObject);
 
   private
     { Private declarations }
@@ -37,10 +39,16 @@ type
 
 var
   GameForm : TGameForm;
-  aktualKosticka,nasledujiciKosticka : TKosticka;
+
+  kostickyImages : TDictionary<TKostickaEnum, TImage>;
+  image : TImage;
+
+  aktualKosticka,nasledujiciKosticka : TTvar;
+  hraciPole : TArray<TArray<TKosticka>>;
+
+  scorelvl,score : Integer;
 
 implementation
-uses Menu;
 
 {$R *.dfm}
 
@@ -48,6 +56,18 @@ uses Menu;
 procedure TGameForm.FormActivate(Sender: TObject);
 begin
   Control.Picture.LoadFromFile(gameModeSelection);
+
+  score := 0;
+  ScoreNumber.Caption := IntToStr(score);
+
+  kostickyImages := TDictionary<TKostickaEnum, TImage>.Create;
+  image.Picture.LoadFromFile('obrazky/CervenaKosticka.png');
+  kostickyImages.Add(TKostickaEnum.CERVENA,image);
+end;
+
+procedure TGameForm.gameLoop(Sender: TObject);
+begin
+
 end;
 
 /// zmìna barvy tlaèítka pøi najetí kurzoru na tlaèítko
@@ -88,7 +108,14 @@ end;
 
 procedure gameInit;
 begin
+  aktualKosticka := nahodnaKosticka(kostickyImages);
+  nasledujiciKosticka := nahodnaKosticka(kostickyImages);
+  SetLength(hraciPole, Constants.HRA_POCET_RADKU, Constants.HRA_POCET_SLOUPCU);
 
+  GameForm.Casovac.Interval := Constants.POCATECNI_RYCHLOST;
+  GameForm.Casovac.Enabled := true;
+
+  scorelvl := 1
 end;
 
 end.

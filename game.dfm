@@ -792,6 +792,8 @@ object GameForm: TGameForm
       C345D367E714DB0000000049454E44AE426082}
   end
   object Casovac: TTimer
+    Enabled = False
+    OnTimer = gameLoop
     Left = 32
     Top = 8
   end
