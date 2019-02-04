@@ -577,6 +577,8 @@ object highScoreForm: ThighScoreForm
       B04E44D60F26205917A22B801390AC835AB9E7B6DC1F87E4B170E49EDB8F4E18
       2C0B043B07829DF303E2BE9AECD2E16D440000000049454E44AE426082}
     OnClick = backButtonClick
+    OnMouseEnter = backButtonMouseEnter
+    OnMouseLeave = backButtonMouseLeave
   end
   object tabulka: TStringGrid
     Left = 50

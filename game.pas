@@ -23,6 +23,10 @@ type
     procedure ExitButtonClick(Sender: TObject);
     procedure FormActivate(Sender: TObject);
     procedure CreateParams(var Params: TCreateParams); override;
+    procedure ExitButtonMouseEnter(Sender: TObject);
+    procedure ExitButtonMouseLeave(Sender: TObject);
+    procedure RetryButtonMouseEnter(Sender: TObject);
+    procedure RetryButtonMouseLeave(Sender: TObject);
 
   private
     { Private declarations }
@@ -45,6 +49,16 @@ begin
   Control.Picture.LoadFromFile(gameModeSelection);
 end;
 
+procedure TGameForm.RetryButtonMouseEnter(Sender: TObject);
+begin
+  RetryButton.Picture.LoadFromFile('obrazky\RetryClickButton.png');
+end;
+
+procedure TGameForm.RetryButtonMouseLeave(Sender: TObject);
+begin
+  RetryButton.Picture.LoadFromFile('obrazky\RetryButton.png');
+end;
+
 procedure TGameForm.CreateParams(var Params: TCreateParams);
 begin
   inherited;
@@ -55,6 +69,16 @@ procedure TGameForm.ExitButtonClick(Sender: TObject);
 begin
   MenuForm.Show;
   Hide;
+end;
+
+procedure TGameForm.ExitButtonMouseEnter(Sender: TObject);
+begin
+  ExitButton.Picture.LoadFromFile('obrazky\ExitClickButton.png');
+end;
+
+procedure TGameForm.ExitButtonMouseLeave(Sender: TObject);
+begin
+  ExitButton.Picture.LoadFromFile('obrazky\ExitButton.png');
 end;
 
 procedure gameInit;

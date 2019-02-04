@@ -16,6 +16,8 @@ type
     procedure backButtonClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
+    procedure backButtonMouseLeave(Sender: TObject);
+    procedure backButtonMouseEnter(Sender: TObject);
   private
     { Private declarations }
   public
@@ -30,6 +32,16 @@ implementation
 uses Menu, score;
 {$R *.dfm}
 
+
+procedure ThighScoreForm.backButtonMouseEnter(Sender: TObject);
+begin
+  backButton.Picture.LoadFromFile('obrazky\BackClickButton.png');
+end;
+
+procedure ThighScoreForm.backButtonMouseLeave(Sender: TObject);
+begin
+  backButton.Picture.LoadFromFile('obrazky\BackButton.png');
+end;
 
 procedure ThighScoreForm.CreateParams(var Params: TCreateParams);
 begin

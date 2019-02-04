@@ -685,6 +685,8 @@ object GameForm: TGameForm
       1D0C191288A3AF1C321410E78E0490218024F6B280C42E280719118865FF1CC8
       4840AC3B2F41460012D9B30BD23390E86E6F5795C02924700AF9054869F14C1D
       874A8F0000000049454E44AE426082}
+    OnMouseEnter = RetryButtonMouseEnter
+    OnMouseLeave = RetryButtonMouseLeave
   end
   object ExitButton: TImage
     Left = 456
@@ -717,6 +719,8 @@ object GameForm: TGameForm
       39D38F81A876BA9E8E092600490180A4007C03F768D85BD91F7E130000000049
       454E44AE426082}
     OnClick = ExitButtonClick
+    OnMouseEnter = ExitButtonMouseEnter
+    OnMouseLeave = ExitButtonMouseLeave
   end
   object pole: TImage
     Left = 265
