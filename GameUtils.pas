@@ -138,7 +138,7 @@ function nahodnaBarva(kostickyImages : TDictionary<TKostickaEnum,TImage>) : TIma
 var
   vals: TArray<TKostickaEnum>;
 begin
-  vals := TArray<TKostickaEnum>.Create(TRUBKA, CTVEREC, LKO, ZKO, TKO);
+  vals := TArray<TKostickaEnum>.Create(CERVENA, MODRA, ZELENA, ORANZOVA, FIALOVA);
   Randomize;
   result := kostickyImages.Items[vals[Random(Length(vals))]];
 end;
