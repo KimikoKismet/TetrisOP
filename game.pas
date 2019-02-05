@@ -63,6 +63,7 @@ begin
   ScoreNumber.Caption := IntToStr(score);
 
   kostickyImages := TDictionary<TKostickaEnum, TImage>.Create;      /// vytvoøení mapy
+  image := TImage.Create(Self);
 
   image.Picture.LoadFromFile('obrazky/CervenaKosticka.png');        /// naètení èervené kostièky
   kostickyImages.Add(TKostickaEnum.CERVENA,image);
