@@ -10,8 +10,7 @@ uses
   Kosticka in 'Kosticka.pas',
   Smer in 'Smer.pas',
   Tvar in 'Tvar.pas',
-  GameUtils in 'GameUtils.pas',
-  Dialog in 'Dialog.pas' {GameOver};
+  GameUtils in 'GameUtils.pas';
 
 {$R *.res}
 
@@ -19,6 +18,5 @@ begin
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
   Application.CreateForm(TMenuForm, MenuForm);
-  Application.CreateForm(TGameOver, GameOver);
   Application.Run;
 end.

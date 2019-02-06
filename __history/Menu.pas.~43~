@@ -42,25 +42,25 @@ uses Highscore, game;
 {$R *.dfm}
 
 
-/// pÅ™i stisku tlaÄÃ­tka Exit se celÃ¡ aplikace vypne
+/// pøi stisku tlaèítka Exit se celá aplikace vypne
 procedure TMenuForm.exitButtonClick(Sender: TObject);
 begin
   Application.Terminate;
 end;
 
-/// zmÄ›na barvy tlaÄÃ­tka pÅ™i najetÃ­ kurzoru na tlaÄÃ­tko
+/// zmìna barvy tlaèítka pøi najetí kurzoru na tlaèítko
 procedure TMenuForm.exitButtonMouseEnter(Sender: TObject);
 begin
   ExitButton.Picture.LoadFromFile('obrazky\ExitClickButton.png');
 end;
 
-/// zmÄ›na barvy tlaÄÃ­tka pÅ™i vyjetÃ­ kurzoru z tlaÄÃ­tka
+/// zmìna barvy tlaèítka pøi vyjetí kurzoru z tlaèítka
 procedure TMenuForm.exitButtonMouseLeave(Sender: TObject);
 begin
   ExitButton.Picture.LoadFromFile('obrazky\ExitButton.png')
 end;
 
-/// pÅ™i stisku tlaÄÃ­tka High Score se pÅ™epne hlavnÃ­ okno na okno s high score
+/// pøi stisku tlaèítka High Score se pøepne hlavní okno na okno s high score
 procedure TMenuForm.highScoreButtonClick(Sender: TObject);
 begin
   Application.CreateForm(ThighScoreForm, highScoreForm);
@@ -68,19 +68,19 @@ begin
   Self.Hide;
 end;
 
-/// zmÄ›na barvy tlaÄÃ­tka pÅ™i najetÃ­ kurzoru na tlaÄÃ­tko
+/// zmìna barvy tlaèítka pøi najetí kurzoru na tlaèítko
 procedure TMenuForm.highScoreButtonMouseEnter(Sender: TObject);
 begin
   highScoreButton.Picture.LoadFromFile('obrazky\HighScoreClickButton.png');
 end;
 
-/// zmÄ›na barvy tlaÄÃ­tka pÅ™i vyjetÃ­ kurzoru z tlaÄÃ­tka
+/// zmìna barvy tlaèítka pøi vyjetí kurzoru z tlaèítka
 procedure TMenuForm.highScoreButtonMouseLeave(Sender: TObject);
 begin
   highScoreButton.Picture.LoadFromFile('obrazky\HighScoreButton.png');
 end;
 
-/// pÅ™i stisku tlaÄÃ­tka Multiplayer se hlavnÃ­ okno pÅ™epne na game s mÃ³dem pro vÃ­ce hrÃ¡ÄÅ¯
+/// pøi stisku tlaèítka Multiplayer se hlavní okno pøepne na game s módem pro více hráèù
 procedure TMenuForm.multiplayerButtonClick(Sender: TObject);
 begin
   gameMode := 2;
@@ -89,19 +89,19 @@ begin
   Self.Hide;
 end;
 
-/// zmÄ›na barvy tlaÄÃ­tka pÅ™i najetÃ­ kurzoru na tlaÄÃ­tko
+/// zmìna barvy tlaèítka pøi najetí kurzoru na tlaèítko
 procedure TMenuForm.multiplayerButtonMouseEnter(Sender: TObject);
 begin
   multiplayerButton.Picture.LoadFromFile('obrazky\MultiplayerClickButton.png');
 end;
 
-/// zmÄ›na barvy tlaÄÃ­tka pÅ™i vyjetÃ­ kurzoru z tlaÄÃ­tka
+/// zmìna barvy tlaèítka pøi vyjetí kurzoru z tlaèítka
 procedure TMenuForm.multiplayerButtonMouseLeave(Sender: TObject);
 begin
   multiplayerButton.Picture.LoadFromFile('obrazky\MultiplayerButton.png');
 end;
 
-/// pÅ™i stisku tlaÄÃ­tka Singleplayer se hlavnÃ­ okno pÅ™epne na game s mÃ³dem pro jednoho hrÃ¡Äe
+/// pøi stisku tlaèítka Singleplayer se hlavní okno pøepne na game s módem pro jednoho hráèe
 procedure TMenuForm.singleplayerButtonClick(Sender: TObject);
 begin
   gameMode := 1;
@@ -110,19 +110,19 @@ begin
   Self.Hide;
 end;
 
-/// zmÄ›na barvy tlaÄÃ­tka pÅ™i najetÃ­ kurzoru na tlaÄÃ­tko
+/// zmìna barvy tlaèítka pøi najetí kurzoru na tlaèítko
 procedure TMenuForm.singleplayerButtonMouseEnter(Sender: TObject);
 begin
   SingleplayerButton.Picture.LoadFromFile('obrazky\SingleplayerClickButton.png');
 end;
 
-/// zmÄ›na barvy tlaÄÃ­tka pÅ™i vyjetÃ­ kurzoru z tlaÄÃ­tka
+/// zmìna barvy tlaèítka pøi vyjetí kurzoru z tlaèítka
 procedure TMenuForm.singleplayerButtonMouseLeave(Sender: TObject);
 begin
   SingleplayerButton.Picture.LoadFromFile('obrazky\SingleplayerButton.png');
 end;
 
-/// funkce, kterÃ¡ vracÃ­ cestu k sprÃ¡vnÃ©mu obrÃ¡zku s nÃ¡vodem ke hÅ™e - pouÅ¾Ã­vÃ¡ se v game.pas
+/// funkce, která vrací cestu k správnému obrázku s návodem ke høe - pouívá se v game.pas
 function gameModeSelection : String;
 begin
   if gameMode = 1 then result := 'obrazky\HowToPlaySingleplayer.png'

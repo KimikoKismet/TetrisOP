@@ -6,7 +6,7 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Imaging.pngimage, System.Generics.Collections,
   Vcl.ExtCtrls, System.UITypes,
-  Menu, GameUtils, Kosticka, Constants, Tvar, Smer;
+  Menu, GameUtils, Kosticka, Constants, Tvar, Smer, Dialog;
 
 type
   TGameForm = class(TForm)
@@ -425,7 +425,7 @@ procedure TGameForm.gameOver;
 begin
   Casovac.Enabled := false;
 
-
+  Dialog.GameOver.ShowModal;
 end;
 
 
