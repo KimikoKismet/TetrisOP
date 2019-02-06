@@ -65,13 +65,14 @@ begin
 
       if (zdroj[radek + y][sloupec + x] = nil) then
         novePole[radek + y][sloupec + x] := kostka.getTvar()[radek][sloupec]
-      else
+      else begin
         smer2 := TDolu.Create;
         if ((smer.getX <> smer2.getX) and (smer.getY <> smer2.getY)) then
           status := VlozeniKostkyStatus.KOLIZE_S_KOSTKOU_ZE_STRANY
         else
           status := VlozeniKostkyStatus.KOLIZE_S_KONCEM;
         GoTo loop;
+      end;
     end;
     loop:
   end;

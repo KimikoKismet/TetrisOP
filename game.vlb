@@ -11,9 +11,6 @@ Coordinates=184,10,49,51
 [RetryButton]
 Coordinates=243,10,49,51
 
-[NasledujiciKosticka]
-Coordinates=10,10,49,51
-
 [okraje]
 Coordinates=69,71,49,51
 
@@ -25,4 +22,7 @@ Coordinates=69,10,46,51
 
 [ScoreNumber]
 Coordinates=128,71,46,51
+
+[nasledujKosticka]
+Coordinates=10,10,49,51
 

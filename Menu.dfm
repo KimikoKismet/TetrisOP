@@ -5,6 +5,7 @@ object MenuForm: TMenuForm
   ClientHeight = 800
   ClientWidth = 600
   Color = clBtnFace
+  DoubleBuffered = True
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
   Font.Height = -11
@@ -415,6 +416,7 @@ object MenuForm: TMenuForm
     000000000000000000000000000000000000000000000000000000000000}
   OldCreateOrder = True
   Position = poScreenCenter
+  Scaled = False
   PixelsPerInch = 96
   TextHeight = 13
   object Background: TImage

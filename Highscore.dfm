@@ -5,6 +5,7 @@ object highScoreForm: ThighScoreForm
   ClientHeight = 800
   ClientWidth = 600
   Color = clBtnFace
+  DoubleBuffered = True
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
   Font.Height = -11
@@ -415,6 +416,7 @@ object highScoreForm: ThighScoreForm
     000000000000000000000000000000000000000000000000000000000000}
   OldCreateOrder = False
   Position = poDesktopCenter
+  Scaled = False
   OnClose = FormClose
   OnShow = FormShow
   PixelsPerInch = 96
