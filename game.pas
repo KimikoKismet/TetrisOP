@@ -5,7 +5,7 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Imaging.pngimage, System.Generics.Collections,
-  Vcl.ExtCtrls,
+  Vcl.ExtCtrls, System.UITypes,
   Menu, GameUtils, Kosticka, Constants, Tvar, Smer;
 
 type
@@ -28,38 +28,70 @@ type
     procedure RetryButtonMouseLeave(Sender: TObject);
     procedure gameLoop(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure gameInit(pole : TImage);
+    procedure gameOver;
+    procedure vykresleni(pole : TImage; hraciPole : TArray<TArray<TKosticka>>; pocetViditelnychRadku : Integer);
+    function posun(smer : TSmer; pole : TImage) : boolean;
+    procedure vykresleniNK(pole : TImage; poleKosticky : TArray<TArray<TKosticka>>);
+    procedure rotace(aktual : TTvar; pole : TImage; hraciPole : TArray<TArray<TKosticka>>);
+    procedure vymazZaplneneRadky(pole : TImage; hraciPole : TArray<TArray<TKosticka>>);
+    function timerUp(lvl : Integer) : Integer;
+    function levelUp(score : Integer) : Integer;
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
 
   private
-    { Private declarations }
+    kostickyImages : TDictionary<TKostickaEnum, TImage>;
+    image : TImage;
+
+    aktualKosticka,nasledujiciKosticka : TTvar;
+    hraciPole : TArray<TArray<TKosticka>>;
+
+    scorelvl,score : Integer;
   public
     GameForm: TGameForm;
   end;
 
 var
-  GameForm : TGameForm;
-
-  kostickyImages : TDictionary<TKostickaEnum, TImage>;
-  image : TImage;
-
-  aktualKosticka,nasledujiciKosticka : TTvar;
-  hraciPole : TArray<TArray<TKosticka>>;
-
-  scorelvl,score : Integer;
-
-  procedure gameInit(pole : TImage);
-  procedure gameOver;
-  procedure vykresleni(pole : TImage; hraciPole : TArray<TArray<TKosticka>>; pocetViditelnychRadku : Integer);
-  function posun(smer : TSmer; pole : TImage) : boolean;
-  procedure vykresleniNK(pole : TImage; poleKosticky : TArray<TArray<TKosticka>>);
-  procedure rotace(aktualKosticka : TTvar; pole : TImage; hraciPole : TArray<TArray<TKosticka>>);
+  GameForm: TGameForm;
 
 implementation
 
 {$R *.dfm}
 
+procedure TGameForm.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  Application.Terminate;
+end;
+
+procedure TGameForm.FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+var
+  smer : TSmer;
+begin
+  case Key of
+    vkUP: rotace(aktualKosticka, pole, hraciPole);
+    vkDOWN: begin
+      smer := TDolu.Create;
+      posun(smer,pole);
+    end;
+    vkRIGHT: begin
+      smer := TDoprava.Create;
+      posun(smer, pole);
+    end;
+    vkLEFT: begin
+      smer := TDoleva.Create;
+      posun(smer, pole);
+    end;
+    vkSPACE: begin
+      smer := TDolu.Create;
+      while posun(smer, pole) do score := score + 2*scorelvl;
+    end;
+  end;
+end;
+
 procedure TGameForm.FormShow(Sender: TObject);
 var
-  bg,nk : TPicture;
+  bg : TPicture;
 begin
   Control.Picture.LoadFromFile(gameModeSelection);                  /// nalouduje nápovìdu
 
@@ -103,17 +135,24 @@ begin
   gameInit(nasledujKosticka);   /// zahájí hru
 end;
 
+/// procedura, ktará se vykoná pøi každém tiku
 procedure TGameForm.gameLoop(Sender: TObject);
 var
   smer : TSmer;
+  kontrola : boolean;
 begin
-  if kontrolaGameOver(hraciPole) then gameOver;
+  kontrola := GameUtils.kontrolaGameOver(hraciPole);
+  if kontrola then gameOver;
 
   smer := TDolu.Create;
   posun(smer, pole);
 
-  vykresleniNK(nasledujKosticka, nasledujiciKosticka.getTvar)
+  vykresleniNK(nasledujKosticka, nasledujiciKosticka.getTvar);
 
+  vymazZaplneneRadky(pole, hraciPole);
+  ScoreNumber.Caption := IntToStr(score);
+
+  scorelvl := timerUp(levelUp(score));
 end;
 
 /// zmìna barvy tlaèítka pøi najetí kurzoru na tlaèítko
@@ -152,7 +191,7 @@ begin
   ExitButton.Picture.LoadFromFile('obrazky\ExitButton.png');
 end;
 
-procedure gameInit(pole : TImage);
+procedure TGameForm.gameInit(pole : TImage);
 begin
   aktualKosticka := nahodnaKosticka(kostickyImages);
   nasledujiciKosticka := nahodnaKosticka(kostickyImages);
@@ -160,20 +199,13 @@ begin
 
   vykresleniNK(pole, nasledujiciKosticka.getTvar);
 
-  GameForm.Casovac.Interval := Constants.POCATECNI_RYCHLOST;
-  GameForm.Casovac.Enabled := true;
+  Casovac.Interval := Constants.POCATECNI_RYCHLOST;
+  Casovac.Enabled := true;
 
   scorelvl := 1;
-
-  //hraciPole[4][0] := TKosticka.Create(GameUtils.nahodnaBarva(kostickyImages));
 end;
 
-procedure gameOver;
-begin
-
-end;
-
-procedure vykresleniNK(pole : TImage; poleKosticky : TArray<TArray<TKosticka>>);
+procedure TGameForm.vykresleniNK(pole : TImage; poleKosticky : TArray<TArray<TKosticka>>);
 var
   sloupec, radek : Integer;
   bg : TPicture;
@@ -194,7 +226,7 @@ begin
   end;
 end;
 
-procedure vykresleni(pole : TImage; hraciPole : TArray<TArray<TKosticka>>; pocetViditelnychRadku : Integer);
+procedure TGameForm.vykresleni(pole : TImage; hraciPole : TArray<TArray<TKosticka>>; pocetViditelnychRadku : Integer);
 var
   offset,radek,sloupec : Integer;
   background : TPicture;
@@ -216,7 +248,7 @@ begin
   end;
 end;
 
-function posun(smer : TSmer; pole : TImage) : boolean;
+function TGameForm.posun(smer : TSmer; pole : TImage) : boolean;
 var
   x,y : Integer;
   copyPole : TArray<TArray<TKosticka>>;
@@ -262,7 +294,7 @@ begin
   end;
 end;
 
-procedure rotace(aktualKosticka : TTvar; pole : TImage; hraciPole : TArray<TArray<TKosticka>>);
+procedure TGameForm.rotace(aktual : TTvar; pole : TImage; hraciPole : TArray<TArray<TKosticka>>);
 var
   otoceni : TArray<TArray<Integer>>;
   min,i : Integer;
@@ -273,7 +305,8 @@ var
   //status : VlozeniKostkyStatus;
   //copyPole : TArray<TArray<TKosticka>>;
 begin
-  otoceni := GameUtils.nasobeniMatic(Constants.maticeOtoceni,aktualKosticka.getBody);
+  SetLength(otoceni,2,4);
+  otoceni := GameUtils.nasobeniMatic(Constants.maticeOtoceni,aktual.getBody);
   min := Integer.MaxValue;
 
   for i := 0 to (Length(otoceni[0])-1) do begin
@@ -287,8 +320,8 @@ begin
   end;
 
   smer := TNic.Create;
-  image := aktualKosticka.getImage(aktualKosticka.getTvar);
-  tmp := aktualKosticka.createTvar(otoceni, image);
+  image := aktual.getImage;
+  tmp := aktual.createTvar(otoceni, image);
 
   {copyPole := GameUtils.copy(hraciPole);
   status := vlozeniKosticky(aktualKosticka,hraciPole,copyPole,smer);}
@@ -304,5 +337,96 @@ begin
   aktualKosticka.setTvar(tmp); // možná nebude potøeba
   posun(smer, pole);
 end;
+
+procedure TGameForm.vymazZaplneneRadky(pole : TImage; hraciPole : TArray<TArray<TKosticka>>);
+var
+  scoreCounter,radek,sloupec : Integer;
+  kontrola : Boolean;
+begin
+  scoreCounter := 0;
+  for radek := 0 to (Length(hraciPole)-1) do begin
+    kontrola := true;
+
+    for sloupec := 0 to (Length(hraciPole[0])-1) do begin
+
+      if (hraciPole[radek][sloupec] = nil) then begin
+        kontrola := false;
+        break;
+      end;
+
+    end;
+
+    if kontrola then begin
+
+      GameUtils.umazRadek(radek, hraciPole);
+      hraciPole := GameUtils.posunZbytekDolu(radek, hraciPole);
+      vykresleni(pole, hraciPole, Constants.HRA_POCET_VIDITELNYCH_RADKU);
+
+      scoreCounter := scoreCounter + 1;
+    end;
+  end;
+
+  case scoreCounter of
+    1: score := score + Constants.SCORE_UMAZANI_RADKU * scorelvl;
+    2: score := score + Constants.SCORE_UMAZANI_RADKU * scorelvl * 3;
+    3: score := score + Constants.SCORE_UMAZANI_RADKU * scorelvl * 5;
+  end;
+end;
+
+function TGameForm.timerUp(lvl : Integer) : Integer;
+begin
+  case lvl of
+    1: begin
+      Casovac.Interval := Constants.POCATECNI_RYCHLOST div Constants.TIMER_LEVEL_1;
+      result := 1;
+    end;
+    2: begin
+      Casovac.Interval := Constants.POCATECNI_RYCHLOST div Constants.TIMER_LEVEL_2;
+      result := 10;
+    end;
+    3: begin
+      Casovac.Interval := Constants.POCATECNI_RYCHLOST div Constants.TIMER_LEVEL_3;
+      result := 50;
+    end;
+    4: begin
+      Casovac.Interval := Constants.POCATECNI_RYCHLOST div Constants.TIMER_LEVEL_4;
+      result := 100;
+    end;
+    5: begin
+      Casovac.Interval := Constants.POCATECNI_RYCHLOST div Constants.TIMER_LEVEL_5;
+      result := 1000;
+    end;
+  end;
+  result := 1;
+end;
+
+function TGameForm.levelUp(score : Integer) : Integer;
+begin
+  if (score >= Constants.SCORE_LEVEL_5) then begin
+    result:= 5;
+  end;
+
+  if (score >= Constants.SCORE_LEVEL_4) then begin
+    result := 4;
+  end;
+
+  if (score >= Constants.SCORE_LEVEL_3) then begin
+    result := 3;
+  end;
+
+  if (score >= Constants.SCORE_LEVEL_2) then begin
+    result := 2;
+  end;
+
+  result := 1;
+end;
+
+procedure TGameForm.gameOver;
+begin
+  Casovac.Enabled := false;
+
+
+end;
+
 
 end.

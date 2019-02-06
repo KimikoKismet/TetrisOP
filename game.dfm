@@ -418,6 +418,8 @@ object GameForm: TGameForm
   OldCreateOrder = False
   Position = poDesktopCenter
   Scaled = False
+  OnClose = FormClose
+  OnKeyDown = FormKeyDown
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13

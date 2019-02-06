@@ -86,7 +86,7 @@ var
   novaMatice : TArray<TArray<Integer>>;
   j,i,sloupec,radek : Integer;
 begin
-  SetLength(novaMatice, Length(pole1), Length(pole2));
+  SetLength(novaMatice, Length(pole1), Length(pole2[0]));
   j := 0;
   for radek := 0 to (Length(novaMatice)-1) do begin
     for sloupec := 0 to (Length(novaMatice[0])-1) do begin
@@ -127,11 +127,17 @@ end;
 function kontrolaGameOver(hraciPole : TArray<TArray<TKosticka>>) : boolean;
 var
   sloupec : Integer;
+  label
+    hop;
 begin
   for sloupec := 0 to (Length(hraciPole[0])-1) do begin
-    if (hraciPole[4][sloupec] <> nil) then result := true;
+    if (hraciPole[4][sloupec] <> nil) then begin
+      result := true;
+      GoTo hop;
+    end;
   end;
   result := false;
+  hop:
 end;
 
 // vygeneruje náhodnou barvu kosticky
