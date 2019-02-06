@@ -13,12 +13,6 @@ Const
   POCET_BAREV = 5;
 
   SCORE_UMAZANI_RADKU = 100;
-  MATICE_OTOCENI : Array[0..1,0..1] of Integer =
-  (
-    (0,-1),
-    (1,0)
-  );
-
 
   SCORE_LEVEL_2 = 2000;
   SCORE_LEVEL_3 = 5000;
@@ -31,6 +25,19 @@ Const
   TIMER_LEVEL_4 = 4;
   TIMER_LEVEL_5 = 5;
 
+var
+  Matice_Otoceni : TArray<Integer>;
+  function maticeOtoceni : TArray<TArray<Integer>>;
+
 implementation
+
+
+function maticeOtoceni : TArray<TArray<Integer>>;
+begin
+  result := TArray<TArray<Integer>>.Create(
+          TArray<Integer>.Create(0, -1),
+          TArray<Integer>.Create(1, 0)
+          );
+end;
 
 end.

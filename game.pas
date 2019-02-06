@@ -18,8 +18,8 @@ type
     Control: TImage;
     okraje: TImage;
     ExitButton: TImage;
-    pole: TImage;
     Casovac: TTimer;
+    pole: TImage;
     procedure ExitButtonClick(Sender: TObject);
     procedure CreateParams(var Params: TCreateParams); override;
     procedure ExitButtonMouseEnter(Sender: TObject);
@@ -33,7 +33,6 @@ type
     { Private declarations }
   public
     GameForm: TGameForm;
-    { Public declarations }
   end;
 
 var
@@ -52,6 +51,7 @@ var
   procedure vykresleni(pole : TImage; hraciPole : TArray<TArray<TKosticka>>; pocetViditelnychRadku : Integer);
   function posun(smer : TSmer; pole : TImage) : boolean;
   procedure vykresleniNK(pole : TImage; poleKosticky : TArray<TArray<TKosticka>>);
+  procedure rotace(aktualKosticka : TTvar; pole : TImage; hraciPole : TArray<TArray<TKosticka>>);
 
 implementation
 
@@ -260,6 +260,49 @@ begin
         result := false;
       end;
   end;
+end;
+
+procedure rotace(aktualKosticka : TTvar; pole : TImage; hraciPole : TArray<TArray<TKosticka>>);
+var
+  otoceni : TArray<TArray<Integer>>;
+  min,i : Integer;
+  tmp : TArray<TArray<TKosticka>>;
+  image : TImage;
+  j: Integer;
+  smer : TSmer;
+  //status : VlozeniKostkyStatus;
+  //copyPole : TArray<TArray<TKosticka>>;
+begin
+  otoceni := GameUtils.nasobeniMatic(Constants.maticeOtoceni,aktualKosticka.getBody);
+  min := Integer.MaxValue;
+
+  for i := 0 to (Length(otoceni[0])-1) do begin
+    if (otoceni[0][i] < min) then  min := otoceni[0][i];
+  end;
+
+  min := Abs(min);
+
+  for i := 0 to (Length(otoceni[0])-1) do begin
+    otoceni[0][i] := otoceni[0][i] + min;
+  end;
+
+  smer := TNic.Create;
+  image := aktualKosticka.getImage(aktualKosticka.getTvar);
+  tmp := aktualKosticka.createTvar(otoceni, image);
+
+  {copyPole := GameUtils.copy(hraciPole);
+  status := vlozeniKosticky(aktualKosticka,hraciPole,copyPole,smer);}
+
+
+ { case status of
+    OK: aktualKosticka.setTvar(tmp);
+    KOLIZE_S_KOSTKOU_ZE_STRANY: aktualKosticka.setTvar(aktualKosticka.getTvar);
+    KOLIZE_SE_STENOU: aktualKosticka.setTvar(aktualKosticka.getTvar);
+    KOLIZE_S_KONCEM: aktualKosticka.setTvar(aktualKosticka.getTvar);
+  end;}
+
+  aktualKosticka.setTvar(tmp); // možná nebude potøeba
+  posun(smer, pole);
 end;
 
 end.

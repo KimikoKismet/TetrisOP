@@ -16,11 +16,12 @@ type
       function getTvar : TArray<TArray<TKosticka>>;
       procedure setTvar(tvar : TArray<TArray<TKosticka>>);
       function getBody : TArray<TArray<Integer>>;
-      //function createTvar(souradnice : TArray<TArray<Integer>>) : TArray<TArray<TKosticka>>;
+      function createTvar(souradnice : TArray<TArray<Integer>>; image : TImage) : TArray<TArray<TKosticka>>;
       function getX : Integer;
       function getY : Integer;
       procedure setX(x : Integer);
       procedure setY(y : Integer);
+      function getImage(tvar : TArray<TArray<TKosticka>>) : TImage;
   End;
   TCtverec = Class(TTvar)
     constructor Create(image : TImage);
@@ -217,5 +218,32 @@ begin
 end;
 
 
+function TTvar.createTvar(souradnice : TArray<TArray<Integer>>; image : TImage) : TArray<TArray<TKosticka>>;
+var
+  tvar : TArray<TArray<TKosticka>>;
+  sloupec : Integer;
+begin
+  SetLength(tvar,4,4);
+  for sloupec := 0 to (Length(souradnice[0])-1) do tvar[souradnice[0][sloupec]][souradnice[1][sloupec]] := TKosticka.Create(image);
+
+end;
+
+function TTvar.getImage(tvar : TArray<TArray<TKosticka>>) : TImage;
+var
+  i,j : Integer;
+  label
+    loop;
+begin
+  for i := 0 to (Length(tvar)-1) do begin
+    for j := 0 to (Length(tvar[0])-1) do begin
+      if (tvar[i][j] <> nil) then begin
+        image := tvar[i][j].getKosticka;
+        GoTo loop;
+      end;
+    end;
+  end;
+  loop:
+  result := image;
+end;
 
 end.
