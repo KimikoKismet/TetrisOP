@@ -2,35 +2,35 @@
 <BorlandProject>
 	<Transactions>
     <Transaction>2019/01/05 19:32:48.000.499,=D:\Programování\Maturitní práce\Unit2.pas</Transaction>
-    <Transaction>2019/01/05 20:02:29.000.337,D:\Programování\Maturitní práce\Unit2.dfm=D:\Programování\Maturitní práce\Tetris\Tetris.dfm</Transaction>
-    <Transaction>2019/01/05 20:02:29.000.337,D:\Programování\Maturitní práce\Unit2.pas=D:\Programování\Maturitní práce\Tetris\Tetris.pas</Transaction>
-    <Transaction>2019/01/05 20:14:38.000.648,D:\Programování\Maturitní práce\Project1.dproj=D:\Programování\Maturitní práce\Tetris\Project1.dproj</Transaction>
+    <Transaction>2019/01/05 20:02:29.000.337,D:\Programování\Maturitní práce\Tetris\Tetris.pas=D:\Programování\Maturitní práce\Unit2.pas</Transaction>
+    <Transaction>2019/01/05 20:02:29.000.337,D:\Programování\Maturitní práce\Tetris\Tetris.dfm=D:\Programování\Maturitní práce\Unit2.dfm</Transaction>
+    <Transaction>2019/01/05 20:14:38.000.648,D:\Programování\Maturitní práce\Tetris\Project1.dproj=D:\Programování\Maturitní práce\Project1.dproj</Transaction>
     <Transaction>2019/01/05 20:17:49.000.404,=D:\Programování\Maturitní práce\Tetris\Unit1.pas</Transaction>
     <Transaction>2019/01/05 20:18:10.000.663,=D:\Programování\Maturitní práce\Tetris\Unit1.pas</Transaction>
-    <Transaction>2019/01/05 20:22:03.000.724,D:\Programování\Maturitní práce\Tetris\Unit1.dfm=D:\Programování\Maturitní práce\Tetris\Highscore.dfm</Transaction>
-    <Transaction>2019/01/05 20:22:03.000.724,D:\Programování\Maturitní práce\Tetris\Unit1.pas=D:\Programování\Maturitní práce\Tetris\Highscore.pas</Transaction>
-    <Transaction>2019/01/05 20:22:10.000.445,D:\Programování\Maturitní práce\Tetris\Tetris.dfm=D:\Programování\Maturitní práce\Tetris\Menu.dfm</Transaction>
-    <Transaction>2019/01/05 20:22:10.000.445,D:\Programování\Maturitní práce\Tetris\Tetris.pas=D:\Programování\Maturitní práce\Tetris\Menu.pas</Transaction>
+    <Transaction>2019/01/05 20:22:03.000.724,D:\Programování\Maturitní práce\Tetris\Highscore.pas=D:\Programování\Maturitní práce\Tetris\Unit1.pas</Transaction>
+    <Transaction>2019/01/05 20:22:03.000.724,D:\Programování\Maturitní práce\Tetris\Highscore.dfm=D:\Programování\Maturitní práce\Tetris\Unit1.dfm</Transaction>
+    <Transaction>2019/01/05 20:22:10.000.445,D:\Programování\Maturitní práce\Tetris\Menu.dfm=D:\Programování\Maturitní práce\Tetris\Tetris.dfm</Transaction>
+    <Transaction>2019/01/05 20:22:10.000.445,D:\Programování\Maturitní práce\Tetris\Menu.pas=D:\Programování\Maturitní práce\Tetris\Tetris.pas</Transaction>
     <Transaction>2019/01/05 20:44:14.000.310,=D:\Programování\Maturitní práce\Tetris\Unit2.pas</Transaction>
-    <Transaction>2019/01/05 21:11:37.000.722,D:\Programování\Maturitní práce\Tetris\Unit2.dfm=D:\Programování\Maturitní práce\Tetris\game.dfm</Transaction>
-    <Transaction>2019/01/05 21:11:37.000.722,D:\Programování\Maturitní práce\Tetris\Unit2.pas=D:\Programování\Maturitní práce\Tetris\game.pas</Transaction>
+    <Transaction>2019/01/05 21:11:37.000.722,D:\Programování\Maturitní práce\Tetris\game.pas=D:\Programování\Maturitní práce\Tetris\Unit2.pas</Transaction>
+    <Transaction>2019/01/05 21:11:37.000.722,D:\Programování\Maturitní práce\Tetris\game.dfm=D:\Programování\Maturitní práce\Tetris\Unit2.dfm</Transaction>
     <Transaction>2019/01/09 12:31:43.000.380,=C:\Users\gmich\Dropbox\TetrisOP\Unit1.pas</Transaction>
-    <Transaction>2019/01/09 12:32:23.000.639,C:\Users\gmich\Dropbox\TetrisOP\Unit1.pas=C:\Users\gmich\Dropbox\TetrisOP\score.pas</Transaction>
+    <Transaction>2019/01/09 12:32:23.000.639,C:\Users\gmich\Dropbox\TetrisOP\score.pas=C:\Users\gmich\Dropbox\TetrisOP\Unit1.pas</Transaction>
     <Transaction>2019/01/09 13:48:45.000.644,=C:\Users\gmich\Dropbox\TetrisOP\Unit1.pas</Transaction>
-    <Transaction>2019/01/09 13:49:13.000.996,C:\Users\gmich\Dropbox\TetrisOP\Constants.pas=C:\Users\gmich\Dropbox\TetrisOP\Unit1.pas</Transaction>
+    <Transaction>2019/01/09 13:49:13.000.996,C:\Users\gmich\Dropbox\TetrisOP\Unit1.pas=C:\Users\gmich\Dropbox\TetrisOP\Constants.pas</Transaction>
     <Transaction>2019/01/26 20:52:04.000.167,=C:\Users\gmich\Dropbox\TetrisOP\Unit1.pas</Transaction>
-    <Transaction>2019/01/26 20:52:44.000.614,C:\Users\gmich\Dropbox\TetrisOP\Kosticka.pas=C:\Users\gmich\Dropbox\TetrisOP\Unit1.pas</Transaction>
+    <Transaction>2019/01/26 20:52:44.000.614,C:\Users\gmich\Dropbox\TetrisOP\Unit1.pas=C:\Users\gmich\Dropbox\TetrisOP\Kosticka.pas</Transaction>
     <Transaction>2019/01/26 21:04:57.000.968,=C:\Users\gmich\Dropbox\TetrisOP\Unit1.pas</Transaction>
-    <Transaction>2019/01/26 21:05:13.000.285,C:\Users\gmich\Dropbox\TetrisOP\KostickaEnum.pas=C:\Users\gmich\Dropbox\TetrisOP\Unit1.pas</Transaction>
+    <Transaction>2019/01/26 21:05:13.000.285,C:\Users\gmich\Dropbox\TetrisOP\Unit1.pas=C:\Users\gmich\Dropbox\TetrisOP\KostickaEnum.pas</Transaction>
     <Transaction>2019/01/26 21:08:59.000.381,=C:\Users\gmich\Dropbox\TetrisOP\Unit1.pas</Transaction>
-    <Transaction>2019/01/26 21:09:09.000.362,C:\Users\gmich\Dropbox\TetrisOP\Smer.pas=C:\Users\gmich\Dropbox\TetrisOP\Unit1.pas</Transaction>
+    <Transaction>2019/01/26 21:09:09.000.362,C:\Users\gmich\Dropbox\TetrisOP\Unit1.pas=C:\Users\gmich\Dropbox\TetrisOP\Smer.pas</Transaction>
     <Transaction>2019/01/27 11:45:26.000.176,=C:\Users\gmich\Dropbox\TetrisOP\Unit1.pas</Transaction>
-    <Transaction>2019/01/27 11:45:36.000.963,C:\Users\gmich\Dropbox\TetrisOP\Unit1.pas=C:\Users\gmich\Dropbox\TetrisOP\Tvar.pas</Transaction>
-    <Transaction>2019/02/02 14:57:59.000.431,C:\Users\gmich\Dropbox\TetrisOP\Tetris.dproj=C:\Users\gmich\Dropbox\TetrisOP\Project1.dproj</Transaction>
+    <Transaction>2019/01/27 11:45:36.000.963,C:\Users\gmich\Dropbox\TetrisOP\Tvar.pas=C:\Users\gmich\Dropbox\TetrisOP\Unit1.pas</Transaction>
+    <Transaction>2019/02/02 14:57:59.000.431,C:\Users\gmich\Dropbox\TetrisOP\Project1.dproj=C:\Users\gmich\Dropbox\TetrisOP\Tetris.dproj</Transaction>
     <Transaction>2019/02/02 16:19:43.000.487,=C:\Users\gmich\Dropbox\TetrisOP\Unit1.pas</Transaction>
-    <Transaction>2019/02/02 16:19:54.000.202,C:\Users\gmich\Dropbox\TetrisOP\GameUtils.pas=C:\Users\gmich\Dropbox\TetrisOP\Unit1.pas</Transaction>
-    <Transaction>2019/02/06 19:44:54.513,=C:\Users\gmich\Dropbox\TetrisOP\Unit1.pas</Transaction>
-    <Transaction>2019/02/06 19:49:39.982,C:\Users\gmich\Dropbox\TetrisOP\Dialog.dfm=C:\Users\gmich\Dropbox\TetrisOP\Unit1.dfm</Transaction>
-    <Transaction>2019/02/06 19:49:39.982,C:\Users\gmich\Dropbox\TetrisOP\Dialog.pas=C:\Users\gmich\Dropbox\TetrisOP\Unit1.pas</Transaction>
+    <Transaction>2019/02/02 16:19:54.000.202,C:\Users\gmich\Dropbox\TetrisOP\Unit1.pas=C:\Users\gmich\Dropbox\TetrisOP\GameUtils.pas</Transaction>
+    <Transaction>2019/02/06 19:44:54.000.513,=C:\Users\gmich\Dropbox\TetrisOP\Unit1.pas</Transaction>
+    <Transaction>2019/02/06 19:49:39.000.982,C:\Users\gmich\Dropbox\TetrisOP\Unit1.dfm=C:\Users\gmich\Dropbox\TetrisOP\Dialog.dfm</Transaction>
+    <Transaction>2019/02/06 19:49:39.000.982,C:\Users\gmich\Dropbox\TetrisOP\Unit1.pas=C:\Users\gmich\Dropbox\TetrisOP\Dialog.pas</Transaction>
   </Transactions>
 </BorlandProject>

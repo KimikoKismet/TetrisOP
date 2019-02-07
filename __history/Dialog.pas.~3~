@@ -4,7 +4,8 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls;
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls,
+  game;
 
 type
   TGameOver = class(TForm)
@@ -21,7 +22,6 @@ type
 var
   GameOver: TGameOver;
 
-
 implementation
 
 {$R *.dfm}
@@ -32,8 +32,8 @@ procedure TGameOver.SaveHighScoreButtonClick(Sender: TObject);
 var
   ulozeni : String;
 begin
-  ulozeni := Username.Text + ': ' + IntToStr(0);
-  GameOver.Hide;
+  ulozeni := Username + ': ' + IntToStr(GameForm.score);
+
 end;
 
 end.

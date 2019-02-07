@@ -10,8 +10,7 @@ type
   TGameOver = class(TForm)
     Popis: TLabel;
     Username: TEdit;
-    SaveHighScoreButton: TButton;
-    procedure SaveHighScoreButtonClick(Sender: TObject);
+    Button1: TButton;
   private
     { Private declarations }
   public
@@ -21,19 +20,10 @@ type
 var
   GameOver: TGameOver;
 
-
 implementation
 
 {$R *.dfm}
 
 
-
-procedure TGameOver.SaveHighScoreButtonClick(Sender: TObject);
-var
-  ulozeni : String;
-begin
-  ulozeni := Username.Text + ': ' + IntToStr(0);
-  GameOver.Hide;
-end;
 
 end.

@@ -47,9 +47,10 @@ type
     aktualKosticka,nasledujiciKosticka : TTvar;
     hraciPole : TArray<TArray<TKosticka>>;
 
-    scorelvl,score : Integer;
+    scorelvl : Integer;
   public
     GameForm: TGameForm;
+    score : Integer;
   end;
 
 var

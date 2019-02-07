@@ -6,7 +6,7 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Imaging.pngimage, System.Generics.Collections,
   Vcl.ExtCtrls, System.UITypes,
-  Menu, GameUtils, Kosticka, Constants, Tvar, Smer;
+  Menu, GameUtils, Kosticka, Constants, Tvar, Smer, Dialog;
 
 type
   TGameForm = class(TForm)
@@ -29,8 +29,8 @@ type
     procedure gameLoop(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
-    procedure FormKeyPress(Sender: TObject; var Key: Char);
     procedure gameInit(pole : TImage);
+    procedure gameOver;
     procedure vykresleni(pole : TImage; hraciPole : TArray<TArray<TKosticka>>; pocetViditelnychRadku : Integer);
     function posun(smer : TSmer; pole : TImage) : boolean;
     procedure vykresleniNK(pole : TImage; poleKosticky : TArray<TArray<TKosticka>>);
@@ -38,6 +38,7 @@ type
     procedure vymazZaplneneRadky(pole : TImage; hraciPole : TArray<TArray<TKosticka>>);
     function timerUp(lvl : Integer) : Integer;
     function levelUp(score : Integer) : Integer;
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
 
   private
     kostickyImages : TDictionary<TKostickaEnum, TImage>;
@@ -52,12 +53,16 @@ type
   end;
 
 var
-
-
+  GameForm: TGameForm;
 
 implementation
 
 {$R *.dfm}
+
+procedure TGameForm.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  Application.Terminate;
+end;
 
 procedure TGameForm.FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
 var
@@ -86,7 +91,7 @@ end;
 
 procedure TGameForm.FormShow(Sender: TObject);
 var
-  bg,nk : TPicture;
+  bg : TPicture;
 begin
   Control.Picture.LoadFromFile(gameModeSelection);                  /// nalouduje nápovìdu
 
@@ -130,11 +135,14 @@ begin
   gameInit(nasledujKosticka);   /// zahájí hru
 end;
 
+/// procedura, ktará se vykoná pøi každém tiku
 procedure TGameForm.gameLoop(Sender: TObject);
 var
   smer : TSmer;
+  kontrola : boolean;
 begin
-  if kontrolaGameOver(hraciPole) then gameOver;
+  kontrola := GameUtils.kontrolaGameOver(hraciPole);
+  if kontrola then gameOver;
 
   smer := TDolu.Create;
   posun(smer, pole);
@@ -143,6 +151,8 @@ begin
 
   vymazZaplneneRadky(pole, hraciPole);
   ScoreNumber.Caption := IntToStr(score);
+
+  scorelvl := timerUp(levelUp(score));
 end;
 
 /// zmìna barvy tlaèítka pøi najetí kurzoru na tlaèítko
@@ -189,8 +199,8 @@ begin
 
   vykresleniNK(pole, nasledujiciKosticka.getTvar);
 
-  GameForm.Casovac.Interval := Constants.POCATECNI_RYCHLOST;
-  GameForm.Casovac.Enabled := true;
+  Casovac.Interval := Constants.POCATECNI_RYCHLOST;
+  Casovac.Enabled := true;
 
   scorelvl := 1;
 end;
@@ -357,10 +367,9 @@ begin
   end;
 
   case scoreCounter of
-    1: score = score + Constants.SCORE_UMAZANI_RADKU * scorelvl;
-    2: score = score + Constants.SCORE_UMAZANI_RADKU * scorelvl * 3;
-    3: score = score + Constants.SCORE_UMAZANI_RADKU * scorelvl * 5;
-    else score = score + Constants.SCORE_UMAZANI_RADKU * scorelvl * 5;
+    1: score := score + Constants.SCORE_UMAZANI_RADKU * scorelvl;
+    2: score := score + Constants.SCORE_UMAZANI_RADKU * scorelvl * 3;
+    3: score := score + Constants.SCORE_UMAZANI_RADKU * scorelvl * 5;
   end;
 end;
 
@@ -388,23 +397,35 @@ begin
       result := 1000;
     end;
   end;
+  result := 1;
 end;
 
-function TGameForm.levelUp(score: Integer);
+function TGameForm.levelUp(score : Integer) : Integer;
 begin
   if (score >= Constants.SCORE_LEVEL_5) then begin
     result:= 5;
-  end
-  else if (score >= Constants.SCORE_LEVEL_4) then begin
+  end;
+
+  if (score >= Constants.SCORE_LEVEL_4) then begin
     result := 4;
-  end
-  else if (score >= Constants.SCORE_LEVEL_3) then begin
+  end;
+
+  if (score >= Constants.SCORE_LEVEL_3) then begin
     result := 3;
-  end
-  else if (score >= Constants.SCORE_LEVEL_2) then begin
+  end;
+
+  if (score >= Constants.SCORE_LEVEL_2) then begin
     result := 2;
-  end
-  else result := 1;
+  end;
+
+  result := 1;
+end;
+
+procedure TGameForm.gameOver;
+begin
+  Casovac.Enabled := false;
+
+  Dialog.GameOver.ShowModal;
 end;
 
 
