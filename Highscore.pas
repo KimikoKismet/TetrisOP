@@ -32,37 +32,16 @@ implementation
 uses Menu, score;
 {$R *.dfm}
 
-/// zmìna barvy tlaèítka pøi najetí kurzoru na tlaèítko
-procedure ThighScoreForm.backButtonMouseEnter(Sender: TObject);
-begin
-  backButton.Picture.LoadFromFile('obrazky\BackClickButton.png');
-end;
 
-/// zmìna barvy tlaèítka pøi vyjetí kurzoru z tlaèítka
-procedure ThighScoreForm.backButtonMouseLeave(Sender: TObject);
-begin
-  backButton.Picture.LoadFromFile('obrazky\BackButton.png');
-end;
 
-procedure ThighScoreForm.CreateParams(var Params: TCreateParams);
-begin
-  inherited;
-  Params.ExStyle := Params.ExStyle or WS_EX_APPWINDOW;
-end;
-
-procedure ThighScoreForm.FormClose(Sender: TObject; var Action: TCloseAction);
-begin
-  Application.Terminate;
-end;
 
 /// jakmile se spustí okno s High Score tak se naètou uložená skóre a zobrazí se v tabulce
 procedure ThighScoreForm.FormShow(Sender: TObject);
-var   skore : TStringList;
-      radek : TArray<String>;
-      i,r : Integer;
-      s : Integer;
+var
+  skore : TStringList;
+  radek : TArray<String>;
+  r,s : Integer;
 begin
-  i := tabulka.ColCount - 1;
   skore := nactiSoubor('HighScore.txt');
   for r := 0 to skore.Count-1 do begin
     radek := rozdeleni(skore[r]);
@@ -70,11 +49,44 @@ begin
   end;
 end;
 
+
+
+///
+procedure ThighScoreForm.CreateParams(var Params: TCreateParams);
+begin
+  inherited;
+  Params.ExStyle := Params.ExStyle or WS_EX_APPWINDOW;
+end;
+
+
+/// po stisknutí køížku v pravo nahoøe se celí aplikace vypne
+procedure ThighScoreForm.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  Application.Terminate;
+end;
+
+
+
+
 /// po stisknutí tlaèítka backButton se uživatel vrátí do menu
 procedure ThighScoreForm.backButtonClick(Sender: TObject);
 begin
   MenuForm.Show;
   Hide;
+end;
+
+
+/// zmìna barvy tlaèítka pøi najetí kurzoru na tlaèítko
+procedure ThighScoreForm.backButtonMouseEnter(Sender: TObject);
+begin
+  backButton.Picture.LoadFromFile('obrazky\BackClickButton.png');
+end;
+
+
+/// zmìna barvy tlaèítka pøi vyjetí kurzoru z tlaèítka
+procedure ThighScoreForm.backButtonMouseLeave(Sender: TObject);
+begin
+  backButton.Picture.LoadFromFile('obrazky\BackButton.png');
 end;
 
 

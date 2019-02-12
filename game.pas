@@ -60,6 +60,70 @@ implementation
 
 {$R *.dfm}
 
+
+
+/// procedura, která se vykoná po naètìní okna s hrou
+procedure TGameForm.FormShow(Sender: TObject);
+var
+  bg : TPicture;
+begin
+  Control.Picture.LoadFromFile(gameModeSelection);                  /// nalouduje nápovìdu
+
+  bg := TPicture.Create;                                            /// nalouduje background do hracího pole
+  try
+    bg.LoadFromFile('obrazky\Pole.png');
+    pole.Canvas.Draw(0,0,bg.Graphic);
+  finally
+    bg.Free;
+  end;
+
+  score := 0;                                                       /// nastaví skóre na 0
+  ScoreNumber.Caption := IntToStr(score);
+
+  kostickyImages := TDictionary<TKostickaEnum, TImage>.Create;      /// vytvoøení mapy
+
+  image := TImage.Create(Self);
+  image.Picture.LoadFromFile('obrazky/CervenaKosticka.png');        /// naètení èervené kostièky
+  kostickyImages.Add(TKostickaEnum.CERVENA,image);
+
+  image := TImage.Create(Self);
+  image.Picture.LoadFromFile('obrazky/ModraKosticka.png');          /// naètení modré kostièky
+  kostickyImages.Add(TKostickaEnum.MODRA,image);
+
+  image := TImage.Create(Self);
+  image.Picture.LoadFromFile('obrazky/ZelenaKosticka.png');         /// naètení zelené kostièky
+  kostickyImages.Add(TKostickaEnum.ZELENA,image);
+
+  image := TImage.Create(Self);
+  image.Picture.LoadFromFile('obrazky/OranzovaKosticka.png');       /// naètení oranžové kostièky
+  kostickyImages.Add(TKostickaEnum.ORANZOVA,image);
+
+  image := TImage.Create(Self);
+  image.Picture.LoadFromFile('obrazky/FialovaKosticka.png');        /// naètení fialové kostièky
+  kostickyImages.Add(TKostickaEnum.FIALOVA,image);
+
+  gameInit(nasledujKosticka);   /// zahájí hru
+end;
+
+
+
+
+procedure TGameForm.gameInit(pole : TImage);
+begin
+  aktualKosticka := nahodnaKosticka(kostickyImages);
+  nasledujiciKosticka := nahodnaKosticka(kostickyImages);
+  SetLength(hraciPole, Constants.HRA_POCET_RADKU, Constants.HRA_POCET_SLOUPCU);
+
+  vykresleniNK(pole, nasledujiciKosticka.getTvar);
+
+  Casovac.Interval := Constants.POCATECNI_RYCHLOST;
+  Casovac.Enabled := true;
+
+  scorelvl := 1;
+end;
+
+
+
 procedure TGameForm.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
   Application.Terminate;
@@ -90,51 +154,7 @@ begin
   end;
 end;
 
-procedure TGameForm.FormShow(Sender: TObject);
-var
-  bg : TPicture;
-begin
-  Control.Picture.LoadFromFile(gameModeSelection);                  /// nalouduje nápovìdu
 
-  bg := TPicture.Create;                                            /// nalouduje background do hracího pole
-  try
-    bg.LoadFromFile('obrazky\Pole.png');
-    pole.Canvas.Draw(0,0,bg.Graphic);
-  finally
-    bg.Free;
-  end;
-
-  {nk:= TPicture.Create;
-  try
-    nk.LoadFromFile('obrazky\NasledujiciKosticka.png');
-    NasledujiciKosticka.Canvas.Draw(0,0,nk.Graphic);
-  finally
-    nk.Free;
-  end;     }
-
-  score := 0;                                                       /// nastaví skóre na 0
-  ScoreNumber.Caption := IntToStr(score);
-
-  kostickyImages := TDictionary<TKostickaEnum, TImage>.Create;      /// vytvoøení mapy
-  image := TImage.Create(Self);
-
-  image.Picture.LoadFromFile('obrazky/CervenaKosticka.png');        /// naètení èervené kostièky
-  kostickyImages.Add(TKostickaEnum.CERVENA,image);
-
-  image.Picture.LoadFromFile('obrazky/ModraKosticka.png');          /// naètení modré kostièky
-  kostickyImages.Add(TKostickaEnum.MODRA,image);
-
-  image.Picture.LoadFromFile('obrazky/ZelenaKosticka.png');         /// naètení zelené kostièky
-  kostickyImages.Add(TKostickaEnum.ZELENA,image);
-
-  image.Picture.LoadFromFile('obrazky/OranzovaKosticka.png');       /// naètení oranžové kostièky
-  kostickyImages.Add(TKostickaEnum.ORANZOVA,image);
-
-  image.Picture.LoadFromFile('obrazky/FialovaKosticka.png');        /// naètení fialové kostièky
-  kostickyImages.Add(TKostickaEnum.FIALOVA,image);
-
-  gameInit(nasledujKosticka);   /// zahájí hru
-end;
 
 /// procedura, ktará se vykoná pøi každém tiku
 procedure TGameForm.gameLoop(Sender: TObject);
@@ -192,19 +212,7 @@ begin
   ExitButton.Picture.LoadFromFile('obrazky\ExitButton.png');
 end;
 
-procedure TGameForm.gameInit(pole : TImage);
-begin
-  aktualKosticka := nahodnaKosticka(kostickyImages);
-  nasledujiciKosticka := nahodnaKosticka(kostickyImages);
-  SetLength(hraciPole, Constants.HRA_POCET_RADKU, Constants.HRA_POCET_SLOUPCU);
 
-  vykresleniNK(pole, nasledujiciKosticka.getTvar);
-
-  Casovac.Interval := Constants.POCATECNI_RYCHLOST;
-  Casovac.Enabled := true;
-
-  scorelvl := 1;
-end;
 
 procedure TGameForm.vykresleniNK(pole : TImage; poleKosticky : TArray<TArray<TKosticka>>);
 var
