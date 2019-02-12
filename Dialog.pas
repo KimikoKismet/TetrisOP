@@ -25,14 +25,15 @@ var
 implementation
 
 {$R *.dfm}
-
+uses
+    game;
 
 
 procedure TGameOver.SaveHighScoreButtonClick(Sender: TObject);
 var
   ulozeni : String;
 begin
-  ulozeni := Username.Text + ': ' + IntToStr(0);
+  ulozeni := Username.Text + ': ' + IntToStr(game.GameForm.score);
   GameOver.Hide;
 end;
 
