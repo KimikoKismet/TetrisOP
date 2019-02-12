@@ -35,7 +35,7 @@ type
     function posun(smer : TSmer; pole : TImage) : boolean;
     procedure vykresleniNK(pole : TImage; poleKosticky : TArray<TArray<TKosticka>>);
     procedure rotace(aktual : TTvar; pole : TImage; hraciPole : TArray<TArray<TKosticka>>);
-    procedure vymazZaplneneRadky(pole : TImage; hraciPole : TArray<TArray<TKosticka>>);
+    procedure vymazZaplneneRadky(pole : TImage);
     function timerUp(lvl : Integer) : Integer;
     function levelUp(score : Integer) : Integer;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
@@ -81,20 +81,24 @@ begin
   ScoreNumber.Caption := IntToStr(score);
 
   kostickyImages := TDictionary<TKostickaEnum, TImage>.Create;      /// vytvoøení mapy
-  image := TImage.Create(Self);
 
+  image := TImage.Create(Self);
   image.Picture.LoadFromFile('obrazky/CervenaKosticka.png');        /// naètení èervené kostièky
   kostickyImages.Add(TKostickaEnum.CERVENA,image);
 
+  image := TImage.Create(Self);
   image.Picture.LoadFromFile('obrazky/ModraKosticka.png');          /// naètení modré kostièky
   kostickyImages.Add(TKostickaEnum.MODRA,image);
 
+  image := TImage.Create(Self);
   image.Picture.LoadFromFile('obrazky/ZelenaKosticka.png');         /// naètení zelené kostièky
   kostickyImages.Add(TKostickaEnum.ZELENA,image);
 
+  image := TImage.Create(Self);
   image.Picture.LoadFromFile('obrazky/OranzovaKosticka.png');       /// naètení oranžové kostièky
   kostickyImages.Add(TKostickaEnum.ORANZOVA,image);
 
+  image := TImage.Create(Self);
   image.Picture.LoadFromFile('obrazky/FialovaKosticka.png');        /// naètení fialové kostièky
   kostickyImages.Add(TKostickaEnum.FIALOVA,image);
 
@@ -166,7 +170,7 @@ begin
 
   vykresleniNK(nasledujKosticka, nasledujiciKosticka.getTvar);
 
-  vymazZaplneneRadky(pole, hraciPole);
+  vymazZaplneneRadky(pole);
   ScoreNumber.Caption := IntToStr(score);
 
   scorelvl := timerUp(levelUp(score));
@@ -343,7 +347,7 @@ begin
   posun(smer, pole);
 end;
 
-procedure TGameForm.vymazZaplneneRadky(pole : TImage; hraciPole : TArray<TArray<TKosticka>>);
+procedure TGameForm.vymazZaplneneRadky(pole : TImage);
 var
   scoreCounter,radek,sloupec : Integer;
   kontrola : Boolean;

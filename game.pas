@@ -152,6 +152,26 @@ begin
       while posun(smer, pole) do score := score + 2*scorelvl;
     end;
   end;
+
+  if (gamemode = 2) then begin
+    case Key of
+      vk1: nasledujiciKosticka := TCtverec.Create(nahodnabarva(kostickyImages));
+      vk2: nasledujiciKosticka := TLkoNormal.Create(nahodnabarva(kostickyImages));
+      vk3: nasledujiciKosticka := TLkoMirror.Create(nahodnabarva(kostickyImages));
+      vk4: nasledujiciKosticka := TTkoKosticka.Create(nahodnabarva(kostickyImages));
+      vk5: nasledujiciKosticka := TZkoNormal.Create(nahodnabarva(kostickyImages));
+      vk6: nasledujiciKosticka := TZkoMirror.Create(nahodnabarva(kostickyImages));
+      vk7: nasledujiciKosticka := TTrubka.Create(nahodnabarva(kostickyImages));
+
+      vkNumpad1: nasledujiciKosticka := TCtverec.Create(nahodnabarva(kostickyImages));
+      vkNumpad2: nasledujiciKosticka := TLkoNormal.Create(nahodnabarva(kostickyImages));
+      vkNumpad3: nasledujiciKosticka := TLkoMirror.Create(nahodnabarva(kostickyImages));
+      vkNumpad4: nasledujiciKosticka := TTkoKosticka.Create(nahodnabarva(kostickyImages));
+      vkNumpad5: nasledujiciKosticka := TZkoNormal.Create(nahodnabarva(kostickyImages));
+      vkNumpad6: nasledujiciKosticka := TZkoMirror.Create(nahodnabarva(kostickyImages));
+      vkNumpad7: nasledujiciKosticka := TTrubka.Create(nahodnabarva(kostickyImages));
+    end;
+  end;
 end;
 
 

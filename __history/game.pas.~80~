@@ -35,7 +35,7 @@ type
     function posun(smer : TSmer; pole : TImage) : boolean;
     procedure vykresleniNK(pole : TImage; poleKosticky : TArray<TArray<TKosticka>>);
     procedure rotace(aktual : TTvar; pole : TImage; hraciPole : TArray<TArray<TKosticka>>);
-    procedure vymazZaplneneRadky(pole : TImage; hraciPole : TArray<TArray<TKosticka>>);
+    procedure vymazZaplneneRadky(pole : TImage);
     function timerUp(lvl : Integer) : Integer;
     function levelUp(score : Integer) : Integer;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
@@ -81,20 +81,24 @@ begin
   ScoreNumber.Caption := IntToStr(score);
 
   kostickyImages := TDictionary<TKostickaEnum, TImage>.Create;      /// vytvoøení mapy
-  image := TImage.Create(Self);
 
+  image := TImage.Create(Self);
   image.Picture.LoadFromFile('obrazky/CervenaKosticka.png');        /// naètení èervené kostièky
   kostickyImages.Add(TKostickaEnum.CERVENA,image);
 
+  image := TImage.Create(Self);
   image.Picture.LoadFromFile('obrazky/ModraKosticka.png');          /// naètení modré kostièky
   kostickyImages.Add(TKostickaEnum.MODRA,image);
 
+  image := TImage.Create(Self);
   image.Picture.LoadFromFile('obrazky/ZelenaKosticka.png');         /// naètení zelené kostièky
   kostickyImages.Add(TKostickaEnum.ZELENA,image);
 
+  image := TImage.Create(Self);
   image.Picture.LoadFromFile('obrazky/OranzovaKosticka.png');       /// naètení oranžové kostièky
   kostickyImages.Add(TKostickaEnum.ORANZOVA,image);
 
+  image := TImage.Create(Self);
   image.Picture.LoadFromFile('obrazky/FialovaKosticka.png');        /// naètení fialové kostièky
   kostickyImages.Add(TKostickaEnum.FIALOVA,image);
 
@@ -117,30 +121,6 @@ begin
 
   scorelvl := 1;
 end;
-
-
-
-
-/// procedura, ktará se vykoná pøi každém tiku
-procedure TGameForm.gameLoop(Sender: TObject);
-var
-  smer : TSmer;
-  kontrola : boolean;
-begin
-  kontrola := GameUtils.kontrolaGameOver(hraciPole);
-  if kontrola then gameOver;
-
-  smer := TDolu.Create;
-  posun(smer, pole);
-
-  vykresleniNK(nasledujKosticka, nasledujiciKosticka.getTvar);
-
-  vymazZaplneneRadky(pole, hraciPole);
-  ScoreNumber.Caption := IntToStr(score);
-
-  scorelvl := timerUp(levelUp(score));
-end;
-
 
 
 
@@ -172,10 +152,122 @@ begin
       while posun(smer, pole) do score := score + 2*scorelvl;
     end;
   end;
+
+  if (gamemode = 2) then begin
+    case Key of
+      vk1: nasledujiciKosticka := TCtverec.Create(nahodnabarva(kostickyImages));
+      vk2: nasledujiciKosticka := TLkoNormal.Create(nahodnabarva(kostickyImages));
+      vk3: nasledujiciKosticka := TLkoMirror.Create(nahodnabarva(kostickyImages));
+      vk4: nasledujiciKosticka := TTkoKosticka.Create(nahodnabarva(kostickyImages));
+      vk5: nasledujiciKosticka := TZkoNormal.Create(nahodnabarva(kostickyImages));
+      vk6: nasledujiciKosticka := TZkoMirror.Create(nahodnabarva(kostickyImages));
+      vk7: nasledujiciKosticka := TTrubka.Create(nahodnabarva(kostickyImages));
+    end;
+  end;
 end;
 
 
 
+/// procedura, ktará se vykoná pøi každém tiku
+procedure TGameForm.gameLoop(Sender: TObject);
+var
+  smer : TSmer;
+  kontrola : boolean;
+begin
+  kontrola := GameUtils.kontrolaGameOver(hraciPole);
+  if kontrola then gameOver;
+
+  smer := TDolu.Create;
+  posun(smer, pole);
+
+  vykresleniNK(nasledujKosticka, nasledujiciKosticka.getTvar);
+
+  vymazZaplneneRadky(pole);
+  ScoreNumber.Caption := IntToStr(score);
+
+  scorelvl := timerUp(levelUp(score));
+end;
+
+/// zmìna barvy tlaèítka pøi najetí kurzoru na tlaèítko
+procedure TGameForm.RetryButtonMouseEnter(Sender: TObject);
+begin
+  RetryButton.Picture.LoadFromFile('obrazky\RetryClickButton.png');
+end;
+
+/// zmìna barvy tlaèítka pøi vyjetí kurzoru z tlaèítka
+procedure TGameForm.RetryButtonMouseLeave(Sender: TObject);
+begin
+  RetryButton.Picture.LoadFromFile('obrazky\RetryButton.png');
+end;
+
+procedure TGameForm.CreateParams(var Params: TCreateParams);
+begin
+  inherited;
+  Params.ExStyle := Params.ExStyle or WS_EX_APPWINDOW;
+end;
+
+procedure TGameForm.ExitButtonClick(Sender: TObject);
+begin
+  MenuForm.Show;
+  Hide;
+end;
+
+/// zmìna barvy tlaèítka pøi najetí kurzoru na tlaèítko
+procedure TGameForm.ExitButtonMouseEnter(Sender: TObject);
+begin
+  ExitButton.Picture.LoadFromFile('obrazky\ExitClickButton.png');
+end;
+
+/// zmìna barvy tlaèítka pøi vyjetí kurzoru z tlaèítka
+procedure TGameForm.ExitButtonMouseLeave(Sender: TObject);
+begin
+  ExitButton.Picture.LoadFromFile('obrazky\ExitButton.png');
+end;
+
+
+
+procedure TGameForm.vykresleniNK(pole : TImage; poleKosticky : TArray<TArray<TKosticka>>);
+var
+  sloupec, radek : Integer;
+  bg : TPicture;
+begin
+  bg := TPicture.Create;
+  try
+    bg.LoadFromFile('obrazky\NasledujiciKosticka.png');
+    pole.Canvas.Draw(0,0,bg.Graphic);
+    for radek := 0 to (Length(poleKosticky)-1) do begin
+      for sloupec := 0 to (Length(poleKosticky[0])-1) do begin
+        if (poleKosticky[radek][sloupec] <> nil) then begin
+          pole.Canvas.Draw((sloupec)*Constants.KOSTICKA_SIZE, (radek)*Constants.KOSTICKA_SIZE, poleKosticky[radek][sloupec].getKosticka.Picture.Graphic);
+        end;
+      end;
+    end;
+  finally
+    bg.Free;
+  end;
+end;
+
+procedure TGameForm.vykresleni(pole : TImage; hraciPole : TArray<TArray<TKosticka>>; pocetViditelnychRadku : Integer);
+var
+  offset,radek,sloupec : Integer;
+  background : TPicture;
+begin
+  background := TPicture.Create;
+  offset := Length(hraciPole) - pocetViditelnychRadku;
+  try
+    background.LoadFromFile('obrazky\Pole.png');
+    pole.Canvas.Draw(0,0,background.Graphic);
+    for radek := 0 to (Length(hraciPole)-offset-1) do begin
+      for sloupec := 0 to (Length(hraciPole[0])-1) do begin
+        if (hraciPole[radek + offset][sloupec] <> nil) then begin
+          pole.Canvas.Draw((sloupec)*Constants.KOSTICKA_SIZE, (radek)*Constants.KOSTICKA_SIZE, hraciPole[radek + offset][sloupec].getKosticka.Picture.Graphic);
+        end;
+      end;
+    end;
+  finally
+    background.Free;
+  end;
+end;
 
 function TGameForm.posun(smer : TSmer; pole : TImage) : boolean;
 var
@@ -223,9 +315,6 @@ begin
   end;
 end;
 
-
-
-
 procedure TGameForm.rotace(aktual : TTvar; pole : TImage; hraciPole : TArray<TArray<TKosticka>>);
 var
   otoceni : TArray<TArray<Integer>>;
@@ -270,59 +359,7 @@ begin
   posun(smer, pole);
 end;
 
-
-
-
-procedure TGameForm.vykresleniNK(pole : TImage; poleKosticky : TArray<TArray<TKosticka>>);
-var
-  sloupec, radek : Integer;
-  bg : TPicture;
-begin
-  bg := TPicture.Create;
-  try
-    bg.LoadFromFile('obrazky\NasledujiciKosticka.png');
-    pole.Canvas.Draw(0,0,bg.Graphic);
-    for radek := 0 to (Length(poleKosticky)-1) do begin
-      for sloupec := 0 to (Length(poleKosticky[0])-1) do begin
-        if (poleKosticky[radek][sloupec] <> nil) then begin
-          pole.Canvas.Draw((sloupec)*Constants.KOSTICKA_SIZE, (radek)*Constants.KOSTICKA_SIZE, poleKosticky[radek][sloupec].getKosticka.Picture.Graphic);
-        end;
-      end;
-    end;
-  finally
-    bg.Free;
-  end;
-end;
-
-
-
-
-procedure TGameForm.vykresleni(pole : TImage; hraciPole : TArray<TArray<TKosticka>>; pocetViditelnychRadku : Integer);
-var
-  offset,radek,sloupec : Integer;
-  background : TPicture;
-begin
-  background := TPicture.Create;
-  offset := Length(hraciPole) - pocetViditelnychRadku;
-  try
-    background.LoadFromFile('obrazky\Pole.png');
-    pole.Canvas.Draw(0,0,background.Graphic);
-    for radek := 0 to (Length(hraciPole)-offset-1) do begin
-      for sloupec := 0 to (Length(hraciPole[0])-1) do begin
-        if (hraciPole[radek + offset][sloupec] <> nil) then begin
-          pole.Canvas.Draw((sloupec)*Constants.KOSTICKA_SIZE, (radek)*Constants.KOSTICKA_SIZE, hraciPole[radek + offset][sloupec].getKosticka.Picture.Graphic);
-        end;
-      end;
-    end;
-  finally
-    background.Free;
-  end;
-end;
-
-
-
-
-procedure TGameForm.vymazZaplneneRadky(pole : TImage; hraciPole : TArray<TArray<TKosticka>>);
+procedure TGameForm.vymazZaplneneRadky(pole : TImage);
 var
   scoreCounter,radek,sloupec : Integer;
   kontrola : Boolean;
@@ -357,9 +394,6 @@ begin
   end;
 end;
 
-
-
-
 function TGameForm.timerUp(lvl : Integer) : Integer;
 begin
   case lvl of
@@ -387,9 +421,6 @@ begin
   result := 1;
 end;
 
-
-
-
 function TGameForm.levelUp(score : Integer) : Integer;
 begin
   if (score >= Constants.SCORE_LEVEL_5) then begin
@@ -411,56 +442,12 @@ begin
   result := 1;
 end;
 
-
-
-
 procedure TGameForm.gameOver;
 begin
   Casovac.Enabled := false;
 
   Dialog.GameOver.ShowModal;
 end;
-
-
-/// zmìna barvy tlaèítka pøi najetí kurzoru na tlaèítko
-procedure TGameForm.RetryButtonMouseEnter(Sender: TObject);
-begin
-  RetryButton.Picture.LoadFromFile('obrazky\RetryClickButton.png');
-end;
-
-/// zmìna barvy tlaèítka pøi vyjetí kurzoru z tlaèítka
-procedure TGameForm.RetryButtonMouseLeave(Sender: TObject);
-begin
-  RetryButton.Picture.LoadFromFile('obrazky\RetryButton.png');
-end;
-
-procedure TGameForm.CreateParams(var Params: TCreateParams);
-begin
-  inherited;
-  Params.ExStyle := Params.ExStyle or WS_EX_APPWINDOW;
-end;
-
-procedure TGameForm.ExitButtonClick(Sender: TObject);
-begin
-  MenuForm.Show;
-  Hide;
-end;
-
-/// zmìna barvy tlaèítka pøi najetí kurzoru na tlaèítko
-procedure TGameForm.ExitButtonMouseEnter(Sender: TObject);
-begin
-  ExitButton.Picture.LoadFromFile('obrazky\ExitClickButton.png');
-end;
-
-/// zmìna barvy tlaèítka pøi vyjetí kurzoru z tlaèítka
-procedure TGameForm.ExitButtonMouseLeave(Sender: TObject);
-begin
-  ExitButton.Picture.LoadFromFile('obrazky\ExitButton.png');
-end;
-
-
-
-
 
 
 end.
