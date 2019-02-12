@@ -35,7 +35,7 @@ type
     function posun(smer : TSmer; pole : TImage) : boolean;
     procedure vykresleniNK(pole : TImage; poleKosticky : TArray<TArray<TKosticka>>);
     procedure rotace(aktual : TTvar; pole : TImage; hraciPole : TArray<TArray<TKosticka>>);
-    procedure vymazZaplneneRadky(pole : TImage; hraciPole : TArray<TArray<TKosticka>>);
+    procedure vymazZaplneneRadky(pole : TImage);
     function timerUp(lvl : Integer) : Integer;
     function levelUp(score : Integer) : Integer;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
@@ -170,7 +170,7 @@ begin
 
   vykresleniNK(nasledujKosticka, nasledujiciKosticka.getTvar);
 
-  vymazZaplneneRadky(pole, hraciPole);
+  vymazZaplneneRadky(pole);
   ScoreNumber.Caption := IntToStr(score);
 
   scorelvl := timerUp(levelUp(score));
@@ -347,7 +347,7 @@ begin
   posun(smer, pole);
 end;
 
-procedure TGameForm.vymazZaplneneRadky(pole : TImage; hraciPole : TArray<TArray<TKosticka>>);
+procedure TGameForm.vymazZaplneneRadky(pole : TImage);
 var
   scoreCounter,radek,sloupec : Integer;
   kontrola : Boolean;

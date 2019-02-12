@@ -105,7 +105,7 @@ procedure umazRadek(radek : Integer; hraciPole : TArray<TArray<TKosticka>>);
 var
   sloupec : Integer;
 begin
-  for sloupec := 0 to Length(hraciPole[0]) do hraciPole[radek][sloupec] := nil;
+  for sloupec := 0 to (Length(hraciPole[0])-1) do hraciPole[radek][sloupec] := nil;
 end;
 
 // posune zbylé kostky dolù, aby zaplnili prázdný øádek
@@ -116,8 +116,8 @@ var
 begin
   copy := GameUtils.copy(hracipole);
 
-  for radek := (prazdnyRadek - 1) downto 0 do begin
-    for sloupec := 0 to (Length(hraciPole[0])-1) do copy[radek+1][sloupec] := hraciPole[radek][sloupec];
+  for radek := (prazdnyRadek) downto 1 do begin
+    for sloupec := 0 to (Length(hraciPole[0])-1) do copy[radek][sloupec] := hraciPole[radek-1][sloupec];
   end;
 
   result := copy;
