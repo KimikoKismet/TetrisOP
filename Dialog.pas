@@ -26,15 +26,31 @@ implementation
 
 {$R *.dfm}
 uses
-    game;
+    game,score;
 
 
 procedure TGameOver.SaveHighScoreButtonClick(Sender: TObject);
 var
   ulozeni : String;
+  ulozeneScore : TStringlist;
 begin
-  ulozeni := Username.Text + ': ' + IntToStr(game.GameForm.score);
-  GameOver.Hide;
+  if (Username.Text <> '') then ulozeni := Username.Text + ': ' + IntToStr(game.GameForm.score)
+  else ulozeni := 'Randomák: ' + IntToStr(game.GameForm.score);
+
+  ulozeneScore := TStringlist.Create;
+  try
+    ulozeneScore.LoadFromFile('HighScore.txt');
+    ulozeneScore.Add(ulozeni);
+
+    ulozeneScore.CustomSort(score.seradScore);
+    //ulozeneScore.Sorted := true;
+
+    ulozeneScore.SaveToFile('HighScore.txt');
+  finally
+    ulozeneScore.Free;
+  end;
+
+  GameOver.Close;
 end;
 
 end.

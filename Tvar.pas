@@ -3,7 +3,7 @@ unit Tvar;
 interface
 
 uses
-  Kosticka, Vcl.ExtCtrls, System.Variants;
+  Kosticka, Constants, Vcl.ExtCtrls, System.Variants;
 
 type
   TTvar = Class(TObject)
@@ -51,6 +51,8 @@ implementation
 constructor TTvar.Create(image: TImage);
 begin
   self.image := image;
+  x := (Constants.HRA_POCET_SLOUPCU div 2) - 1;
+  y := Constants.POCATECNI_SOURADNICE;
 end;
 
 function TTvar.getTvar : TArray<TArray<TKosticka>>;

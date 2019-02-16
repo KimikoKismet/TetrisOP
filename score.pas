@@ -5,6 +5,7 @@ uses System.SysUtils, Classes;
 
 function nactiSoubor(nazevSouboru : String) : TStringList;
 function rozdeleni(radek : String) : TArray<String>;
+function seradScore(ulozeneScore : TStringList; index1, index2 : Integer) : Integer;
 
 implementation
 uses Highscore;
@@ -25,6 +26,20 @@ begin
   score := TStringList.Create;
   score.LoadFromFile(nazevSouboru);
   result := score;
+end;
+
+function seradScore(ulozeneScore : TStringList; index1, index2 : Integer) : Integer;
+var
+  radek1, radek2 : String;
+  s1,s2 : TArray<String>;
+begin
+  radek1 := ulozeneScore[index1];
+  s1 := rozdeleni(radek1);
+
+  radek2 := ulozeneScore[index2];
+  s2 := rozdeleni(radek2);
+
+  result := StrToInt(s2[1]) - StrToInt(s1[1]);
 end;
 
 end.
