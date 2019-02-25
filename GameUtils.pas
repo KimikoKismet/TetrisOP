@@ -168,6 +168,7 @@ begin
     4 : result := TTkoKosticka.Create(image);
     5 : result := TLkoNormal.Create(image);
     6 : result := TLkoMirror.Create(image);
+    else result := TLkoMirror.Create(image);
   end;
 end;
 

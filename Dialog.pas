@@ -4,13 +4,15 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls;
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Imaging.pngimage,
+  Vcl.ExtCtrls;
 
 type
   TGameOver = class(TForm)
     Popis: TLabel;
     Username: TEdit;
     SaveHighScoreButton: TButton;
+    Image1: TImage;
     procedure SaveHighScoreButtonClick(Sender: TObject);
   private
     { Private declarations }

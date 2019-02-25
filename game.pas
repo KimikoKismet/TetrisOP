@@ -107,28 +107,32 @@ end;
 
 
 
-
+/// procedura, která nastaví poèátek hry
 procedure TGameForm.gameInit(pole : TImage);
 begin
-  aktualKosticka := nahodnaKosticka(kostickyImages);
-  nasledujiciKosticka := nahodnaKosticka(kostickyImages);
-  SetLength(hraciPole, Constants.HRA_POCET_RADKU, Constants.HRA_POCET_SLOUPCU);
+  aktualKosticka := nahodnaKosticka(kostickyImages);                                /// vygeneruje náhodnou kostièku jako aktuální kostièku
+  nasledujiciKosticka := nahodnaKosticka(kostickyImages);                           /// vygeneruje náhodnou kostièku jako následující kostièku
+  SetLength(hraciPole, Constants.HRA_POCET_RADKU, Constants.HRA_POCET_SLOUPCU);     /// nastaví velikost hracího pole
 
-  vykresleniNK(pole, nasledujiciKosticka.getTvar);
+  vykresleniNK(pole, nasledujiciKosticka.getTvar);                                  /// vykreslí následující kostièku do urèeného pole
 
-  Casovac.Interval := Constants.POCATECNI_RYCHLOST;
-  Casovac.Enabled := true;
+  Casovac.Interval := Constants.POCATECNI_RYCHLOST;                                 /// nastaví èasovaè na poèáteèní rychlost tikù
+  Casovac.Enabled := true;                                                          /// zapne èasovaè
 
-  scorelvl := 1;
+  scorelvl := 1;                                                                    /// nastaví level na 1
 end;
 
 
 
+/// po stisknutí køížku vpravo nahoøe se celí aplikace vypne
 procedure TGameForm.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
   Application.Terminate;
 end;
 
+
+
+/// nastavení ovládání hry
 procedure TGameForm.FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
 var
   smer : TSmer;
@@ -182,19 +186,22 @@ var
   smer : TSmer;
   kontrola : boolean;
 begin
-  kontrola := GameUtils.kontrolaGameOver(hraciPole);
+  kontrola := GameUtils.kontrolaGameOver(hraciPole);                /// kontrola jestli nemá nastat Game Over
   if kontrola then gameOver;
 
   smer := TDolu.Create;
-  posun(smer, pole);
+  posun(smer, pole);                                                /// posun aktuální kostièky dolù
 
-  vykresleniNK(nasledujKosticka, nasledujiciKosticka.getTvar);
+  vykresleniNK(nasledujKosticka, nasledujiciKosticka.getTvar);      /// vykreslení následující kostièky
 
-  vymazZaplneneRadky(pole);
-  ScoreNumber.Caption := IntToStr(score);
+  vymazZaplneneRadky(pole);                                         /// vymazání zaplnìných øádkù
+  ScoreNumber.Caption := IntToStr(score);                           /// vypsání skóre
 
-  scorelvl := timerUp(levelUp(score));
+  scorelvl := timerUp(levelUp(score));                              /// pokud je tøeba, tak zvýší úroveò obtížnosti
 end;
+
+
+
 
 /// zmìna barvy tlaèítka pøi najetí kurzoru na tlaèítko
 procedure TGameForm.RetryButtonMouseEnter(Sender: TObject);
@@ -208,12 +215,14 @@ begin
   RetryButton.Picture.LoadFromFile('obrazky\RetryButton.png');
 end;
 
+/// vytvoøí ikonku na dolní lištì
 procedure TGameForm.CreateParams(var Params: TCreateParams);
 begin
   inherited;
   Params.ExStyle := Params.ExStyle or WS_EX_APPWINDOW;
 end;
 
+/// po stisknutí tlaèítka EXIT se uživatel vrací do hlavního menu
 procedure TGameForm.ExitButtonClick(Sender: TObject);
 begin
   MenuForm.Show;
@@ -234,6 +243,7 @@ end;
 
 
 
+/// procedura, která vykresluje následující kostièku
 procedure TGameForm.vykresleniNK(pole : TImage; poleKosticky : TArray<TArray<TKosticka>>);
 var
   sloupec, radek : Integer;
@@ -255,6 +265,9 @@ begin
   end;
 end;
 
+
+
+/// procedura, která vykresluje aktuální kostièku a herní pole
 procedure TGameForm.vykresleni(pole : TImage; hraciPole : TArray<TArray<TKosticka>>; pocetViditelnychRadku : Integer);
 var
   offset,radek,sloupec : Integer;
@@ -277,52 +290,58 @@ begin
   end;
 end;
 
+
+
+/// funkce, která posune aktuální kostièku daným smìrem a vrací true, pokud se kostièka posunula
 function TGameForm.posun(smer : TSmer; pole : TImage) : boolean;
 var
   x,y : Integer;
   copyPole : TArray<TArray<TKosticka>>;
   status : VlozeniKostkyStatus;
 begin
-  x := aktualKosticka.getX + smer.getX;
-  y := aktualKosticka.getY + smer.getY;
+  x := aktualKosticka.getX + smer.getX;               /// vypoèítá novou souøadnici x aktuání kostièky
+  y := aktualKosticka.getY + smer.getY;               /// vypoèítá novou souøadnici y aktuání kostièky
 
-  copyPole := GameUtils.copy(hraciPole);
-  status := vlozeniKosticky(aktualKosticka,hraciPole,copyPole,smer);
+  copyPole := GameUtils.copy(hraciPole);                                     /// zkopíruje hrácí pole do nového pole
+  status := vlozeniKosticky(aktualKosticka,hraciPole,copyPole,smer);         /// pokusí se vložit aktuální kostièku s novými souøadnicemi do nového pole
 
   case status of
-    OK:
+    OK:                             /// kostièka se mùže posunout
       begin
-        vykresleni(pole, copyPole, Constants.HRA_POCET_VIDITELNYCH_RADKU);
-        aktualKosticka.setX(x);
-        aktualKosticka.setY(y);
+        vykresleni(pole, copyPole, Constants.HRA_POCET_VIDITELNYCH_RADKU);        /// vykreslí nové pole
+        aktualKosticka.setX(x);                                                   /// nastaví novou souøadnici x aktuální kostièky
+        aktualKosticka.setY(y);                                                   /// nastaví novou souøadnici y aktuální kostièky
         result := true;
       end;
-    KOLIZE_S_KOSTKOU_ZE_STRANY:
+    KOLIZE_S_KOSTKOU_ZE_STRANY:     /// kostièka narazila do kostky ze strany
       begin
-        copyPole := copy(hraciPole);
-        GameUtils.vlozeniKosticky(aktualKosticka, hraciPole, copyPole, TNic.Create);
-        vykresleni(pole, copyPole, Constants.HRA_POCET_VIDITELNYCH_RADKU);
+        copyPole := copy(hraciPole);                                                    /// pole zùstane takové jaké bylo
+        GameUtils.vlozeniKosticky(aktualKosticka, hraciPole, copyPole, TNic.Create);    /// nikam se neposune
+        vykresleni(pole, copyPole, Constants.HRA_POCET_VIDITELNYCH_RADKU);              /// vykreslení
         result := true;
       end;
-    KOLIZE_SE_STENOU:
+    KOLIZE_SE_STENOU:               /// kostièka narazila do boèní stìny
       begin
-        copyPole := copy(hraciPole);
-        GameUtils.vlozeniKosticky(aktualKosticka, hraciPole, copyPole, TNic.Create);
-        vykresleni(pole, copyPole, Constants.HRA_POCET_VIDITELNYCH_RADKU);
+        copyPole := copy(hraciPole);                                                    /// pole zùstane takové jaké bylo
+        GameUtils.vlozeniKosticky(aktualKosticka, hraciPole, copyPole, TNic.Create);    /// nikam se neposune
+        vykresleni(pole, copyPole, Constants.HRA_POCET_VIDITELNYCH_RADKU);              /// vykreslení
         result := true;
       end;
-    KOLIZE_S_KONCEM:
+    KOLIZE_S_KONCEM:                /// kostièka narazila na dno hracího pole
       begin
-        copyPole := copy(hraciPole);
-        GameUtils.vlozeniKosticky(aktualKosticka, hraciPole, copyPole, TNic.Create);
-        hraciPole := copyPole;
-        aktualKosticka := nasledujiciKosticka;
-        nasledujiciKosticka := GameUtils.nahodnaKosticka(kostickyImages);
+        copyPole := copy(hraciPole);                                                    /// pole zùstane takové jaké bylo
+        GameUtils.vlozeniKosticky(aktualKosticka, hraciPole, copyPole, TNic.Create);    /// nikam se neposune
+        hraciPole := copyPole;                                                          /// vloží aktuální kostièku do hracího pole
+        aktualKosticka := nasledujiciKosticka;                                          /// nastaví následující kostièku na aktuální
+        nasledujiciKosticka := GameUtils.nahodnaKosticka(kostickyImages);               /// vygeneruje novou náhodnou následující kostièku
         result := false;
       end;
   end;
 end;
 
+
+
+/// procedura, která otoèí požadovaný tvar o 90°
 procedure TGameForm.rotace(aktual : TTvar; pole : TImage; hraciPole : TArray<TArray<TKosticka>>);
 var
   otoceni : TArray<TArray<Integer>>;
@@ -367,41 +386,48 @@ begin
   posun(smer, pole);
 end;
 
+
+
+/// procedura, která vymaže zaplnìné øádky a posune zbytek dolù
 procedure TGameForm.vymazZaplneneRadky(pole : TImage);
 var
   scoreCounter,radek,sloupec : Integer;
   kontrola : Boolean;
 begin
   scoreCounter := 0;
-  for radek := 0 to (Length(hraciPole)-1) do begin
+  for radek := 0 to (Length(hraciPole)-1) do begin            /// projde všechny øádky hracího pole
     kontrola := true;
 
-    for sloupec := 0 to (Length(hraciPole[0])-1) do begin
+    for sloupec := 0 to (Length(hraciPole[0])-1) do begin            /// projde celý øádek po sloupcích
 
-      if (hraciPole[radek][sloupec] = nil) then begin
+      if (hraciPole[radek][sloupec] = nil) then begin                /// pokud narazází na prázné pole, nastaví kontrolu na false a pøejde na další øádek
         kontrola := false;
         break;
       end;
 
     end;
 
-    if kontrola then begin
+    if kontrola then begin                                           /// pokud se kontrola = true, tak vykonej:
 
-      GameUtils.umazRadek(radek, hraciPole);
-      hraciPole := GameUtils.posunZbytekDolu(radek, hraciPole);
-      vykresleni(pole, hraciPole, Constants.HRA_POCET_VIDITELNYCH_RADKU);
+      GameUtils.umazRadek(radek, hraciPole);                                       /// umaž daný øádek
+      hraciPole := GameUtils.posunZbytekDolu(radek, hraciPole);                    /// posuò zbytek pole dolù
+      vykresleni(pole, hraciPole, Constants.HRA_POCET_VIDITELNYCH_RADKU);          /// vykresli hrací pole
 
       scoreCounter := scoreCounter + 1;
     end;
   end;
 
-  case scoreCounter of
+  case scoreCounter of                                                            /// pøiète odpovídající skóre, podle toho, kolik øádkù se smazalo
     1: score := score + Constants.SCORE_UMAZANI_RADKU * scorelvl;
     2: score := score + Constants.SCORE_UMAZANI_RADKU * scorelvl * 3;
     3: score := score + Constants.SCORE_UMAZANI_RADKU * scorelvl * 5;
   end;
 end;
 
+
+
+
+/// funkce která zrychluje èasovaè podle levelu
 function TGameForm.timerUp(lvl : Integer) : Integer;
 begin
   case lvl of
@@ -425,36 +451,32 @@ begin
       Casovac.Interval := Constants.POCATECNI_RYCHLOST div Constants.TIMER_LEVEL_5;
       result := 1000;
     end;
+    else result := 1;
   end;
-  result := 1;
 end;
 
+
+
+
+/// funkce která zvýší level podle skóre
 function TGameForm.levelUp(score : Integer) : Integer;
 begin
-  if (score >= Constants.SCORE_LEVEL_5) then begin
-    result:= 5;
-  end;
-
-  if (score >= Constants.SCORE_LEVEL_4) then begin
-    result := 4;
-  end;
-
-  if (score >= Constants.SCORE_LEVEL_3) then begin
-    result := 3;
-  end;
-
-  if (score >= Constants.SCORE_LEVEL_2) then begin
-    result := 2;
-  end;
-
-  result := 1;
+  if (score >= Constants.SCORE_LEVEL_5) then result:= 5
+  else if (score >= Constants.SCORE_LEVEL_4) then result := 4
+  else if (score >= Constants.SCORE_LEVEL_3) then result := 3
+  else if (score >= Constants.SCORE_LEVEL_2) then result := 2
+  else result := 1;
 end;
 
+
+
+
+/// procedura, ktrá zahájí Game Over
 procedure TGameForm.gameOver;
 begin
-  Casovac.Enabled := false;
+  Casovac.Enabled := false;     /// vypnutí èasovaèe
 
-  Dialog.GameOver.ShowModal;
+  Dialog.GameOver.ShowModal;    /// vyskoèí dialog pro uložení skóre
 end;
 
 

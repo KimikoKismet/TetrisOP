@@ -42,7 +42,12 @@ var
   radek : TArray<String>;
   r,s : Integer;
 begin
-  skore := nactiSoubor('HighScore.txt');
+  tabulka.Cells[1,0] := 'Player';             /// nastaví záhlaví tabulky
+  tabulka.Cells[2,0] := 'Score';
+
+  for r := 1 to (tabulka.RowCount-1) do tabulka.Cells[0,r] := IntToStr(r);               /// naète do tabulky poøadí (1....)
+
+  skore := nactiSoubor('HighScore.txt');                          /// naète uložené skóre
   for r := 0 to skore.Count-1 do begin
     radek := rozdeleni(skore[r]);
     for s := 0 to 1 do tabulka.Cells[s+1,r+1] := radek[s];
@@ -51,7 +56,7 @@ end;
 
 
 
-///
+/// vytvoøí ikonku na dolní lištì
 procedure ThighScoreForm.CreateParams(var Params: TCreateParams);
 begin
   inherited;
